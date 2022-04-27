@@ -15,7 +15,7 @@ namespace StudentSystem.Utils
         {
             var data = Cryptography.Decrypt(File.ReadAllText(filename), "yolo123");
             var lines = data.Split('\n');
-            List<UserLoginSuggestion> suggestions = new List<UserLoginSuggestion>() { new UserLoginSuggestion() { Username = "ivan", Password = "pass" } };
+            List<UserLoginSuggestion> suggestions = new List<UserLoginSuggestion>();
             foreach (var line in lines)
             {
                 var index = line.IndexOf('+');

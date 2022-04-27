@@ -9,6 +9,6 @@ namespace StudentSystem.Utils
 {
     public static class UserInfo
     {
-        public static User CurrentUser { get; set; } = new User() { Username = "IVAN!", Settings = new Settings() };
+        public static User CurrentUser { get; set; }
     }
 }

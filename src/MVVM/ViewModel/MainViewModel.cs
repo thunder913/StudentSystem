@@ -1,5 +1,6 @@
 ﻿using StudentSystem.Core;
 using StudentSystem.MVVM.ViewModel.Command;
+using StudentSystem.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace StudentSystem.MVVM.ViewModel
         public ICommand LibraryCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
         public ICommand CycleSuggestionCommand { get; set; }
+        public ICommand SignOutCommand { get; set; }
 
         public int SuggestionIndex { get; set; } = -1;
         public bool IsCycling { get; set; }
@@ -53,17 +55,22 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public MainViewModel()
+        public MainViewModel(IViewModel model) : base()
         {
-            CurrentViewModelParent = this;
-            CurrentViewModel = new HomeViewModel();
+            CurrentViewModel = model;
             HomeCommand = new NavigationCommand<HomeViewModel>(this);
             CycleSuggestionCommand = new CycleSuggestionCommand(this);
+            this.SignOutCommand = new SignOutCommand(this);
         }
 
         public void ExecuteCycleSuggestions(object parameter)
         {
+        }
+
+        public void SignOut()
+        {
+            UserInfo.CurrentUser = null;
+            CurrentViewModel = new LoginViewModel();
         }
     }
 }

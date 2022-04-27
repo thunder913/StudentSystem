@@ -82,6 +82,7 @@
     <Compile Include="MVVM\Model\DB\Settings.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\LoginCommand.cs" />
+    <Compile Include="MVVM\ViewModel\Command\SignOutCommand.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\IViewModelSuggestions.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />

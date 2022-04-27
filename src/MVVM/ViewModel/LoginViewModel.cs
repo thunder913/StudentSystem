@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using StudentSystem.Core;
+using StudentSystem.DAL;
 using StudentSystem.MVVM.Model;
 using StudentSystem.MVVM.ViewModel.Command;
 using StudentSystem.Utils;
@@ -13,6 +15,7 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class LoginViewModel : ObservableObject, IViewModelSuggestions
     {
+        private UserService _userService;
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
         private bool _hasError;
@@ -78,11 +81,11 @@ namespace StudentSystem.MVVM.ViewModel
                 new KeyValuePair<object, string>(_suggestionEntry, "Username");
             PassKeyPair =
                 new KeyValuePair<object, string>(_suggestionEntry, "Password");
-            CurrentViewModelParent = this;
-            CurrentViewModel = null;
-            //_userService = new UserService(new LibraryContext());
+            CurrentViewModelParent = new MainViewModel(this);
+            CurrentViewModel = this;
             LoginCommand = new LoginCommand(this);
             RegisterCommand = new RegisterCommand(this);
+            _userService = new UserService(new StudentContext());
         }
 
         public bool CanExecute()
@@ -93,16 +96,23 @@ namespace StudentSystem.MVVM.ViewModel
         }
         public void Login(object parameter)
         {
-            CurrentViewModelParent = new MainViewModel();
-            CurrentViewModel = new HomeViewModel();
-            _suggestionFileManager.AddSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
+            if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
+            {
+                _suggestionFileManager.AddSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
+                CurrentViewModelParent = new MainViewModel(new HomeViewModel());
+            }
+            else
+            {
+                MessageBox.Show("Невалидно потребителско име или парола!");
+                HasError = true;
+            }
         }
 
         public void Register(object parameter)
         {
-            //_userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
-            //CurrentViewModelParent = new MainViewModel();
-            //CurrentViewModel = new HomeViewModel();
+            _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
+            CurrentViewModelParent = new MainViewModel(this);
+            CurrentViewModel = new HomeViewModel();
         }
 
         public IViewModel CurrentViewModel
