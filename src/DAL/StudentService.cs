@@ -19,5 +19,24 @@ namespace StudentSystem.DAL
         {
             return _studentContext.Students.Where(s => facultyNumbers.Contains(s.FacultyNumber)).ToList();
         }
+
+        public void AddStudent(string specialty, int stream, int course, int group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)
+        {
+            _studentContext.Students.Add(new Student
+            {
+                Specialty = specialty,
+                FacultyNumber = facultyNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                MiddleName = middleName,
+                PhoneNumber = phoneNumber,
+                Email = email,
+                Faculty = faculty,
+                Stream = stream,
+                Course = course,
+                Group = group
+            });
+            _studentContext.SaveChanges();
+        }
     }
 }

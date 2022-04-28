@@ -1,4 +1,5 @@
 ﻿using StudentSystem.Core;
+using StudentSystem.DAL;
 using StudentSystem.MVVM.Model;
 using StudentSystem.MVVM.ViewModel.Command;
 using StudentSystem.Utils;
@@ -13,6 +14,7 @@ namespace StudentSystem.MVVM.ViewModel
 {
     internal class AddStudentViewModel : ObservableObject, IViewModel
     {
+        private StudentService studentService { get; set; }
         public ICommand AddCommand { get; set; }
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
@@ -58,6 +60,7 @@ namespace StudentSystem.MVVM.ViewModel
                 var first = _suggestions.First();
                 var inputLengthThreshold =
                     UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
+                BestSuggestion = new StudentAddSuggestion();
                 BestSuggestion.FacultyNumber = SuggestionEntry.FacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
             }
         }
@@ -220,10 +223,12 @@ namespace StudentSystem.MVVM.ViewModel
             CurrentViewModelParent = this;
             CurrentViewModel = null;
             AddCommand = new AddStudentCommand(this);
+            studentService = new StudentService(new StudentContext());
         }
 
         public void AddStudent()
         {
+            
             _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
             {
                 Specialty = SuggestionEntry.Specialty,
@@ -238,8 +243,7 @@ namespace StudentSystem.MVVM.ViewModel
                 MiddleName = SuggestionEntry.MiddleName,
                 PhoneNumber = SuggestionEntry.PhoneNumber
             });
-
-            //TODO add the student to the database
+            studentService.AddStudent(SuggestionEntry.Specialty, int.Parse(SuggestionEntry.Stream), int.Parse(SuggestionEntry.Course), int.Parse(SuggestionEntry.Group), SuggestionEntry.FacultyNumber, SuggestionEntry.FirstName, SuggestionEntry.LastName, SuggestionEntry.MiddleName, SuggestionEntry.PhoneNumber, SuggestionEntry.Email, SuggestionEntry.Faculty);
             //TODO make all the necessary checks whether the student is already in the database and all the data is correct
         }
 
