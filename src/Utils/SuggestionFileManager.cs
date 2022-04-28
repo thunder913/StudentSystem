@@ -4,16 +4,46 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StudentSystem.DAL;
 using StudentSystem.MVVM.Model;
 
 namespace StudentSystem.Utils
 {
     public class SuggestionFileManager
     {
-        private const string filename = "logindata.dat";
-        public List<UserLoginSuggestion> GetSuggestions()
+        private const string LoginFileName = "logindata.dat";
+        private const string AddStudentFileName = "addstudent.dat";
+        private StudentService studentService { get; set; }
+        public List<StudentAddSuggestion> GetStudentAddSuggestions()
         {
-            var data = Cryptography.Decrypt(File.ReadAllText(filename), "yolo123");
+            var data = Cryptography.Decrypt(File.ReadAllText(AddStudentFileName), "yolo123");
+            var lines = data.Split('\n');
+            List<string> facultyNumbers = new List<string>();
+            foreach (var line in lines)
+            {
+                facultyNumbers.Add(line);
+            }
+
+            return studentService
+                .GetStudentsByFacNumber(facultyNumbers)
+                .Select(x => new StudentAddSuggestion()
+                {
+                    Course = x.Course.ToString(),
+                    Specialty = x.Specialty,
+                    Email = x.Email,
+                    Stream = x.Stream.ToString(),
+                    Faculty = x.Faculty,
+                    FacultyNumber = x.FacultyNumber,
+                    FirstName = x.FirstName,
+                    Group = x.Group.ToString(),
+                    LastName = x.LastName,
+                    MiddleName = x.MiddleName,
+                    PhoneNumber = x.PhoneNumber
+                }).ToList();
+        }
+
+        public List<UserLoginSuggestion> GetLoginSuggestions(){
+            var data = Cryptography.Decrypt(File.ReadAllText(LoginFileName), "yolo123");
             var lines = data.Split('\n');
             List<UserLoginSuggestion> suggestions = new List<UserLoginSuggestion>();
             foreach (var line in lines)
@@ -26,8 +56,19 @@ namespace StudentSystem.Utils
 
             return suggestions;
         }
+        
+        public void SetAddStudentSuggetions(List<StudentAddSuggestion> suggestions)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var suggestion in suggestions)
+            {
+                sb.Append(suggestion.FacultyNumber);
+                sb.Append("\n");
+            }
+            File.WriteAllText(AddStudentFileName, Cryptography.Encrypt(sb.ToString(), "yolo123"));
+        }
 
-        public void SetSuggestions(List<UserLoginSuggestion> suggestions)
+        public void SetLoginSuggestions(List<UserLoginSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
             foreach (var suggestion in suggestions)
@@ -37,19 +78,28 @@ namespace StudentSystem.Utils
                 sb.Append(suggestion.Password);
                 sb.Append("\n");
             }
-            File.WriteAllText(filename, Cryptography.Encrypt(sb.ToString(), "yolo123"));
+            File.WriteAllText(LoginFileName, Cryptography.Encrypt(sb.ToString(), "yolo123"));
         }
 
-        public void AddSuggestion(UserLoginSuggestion suggestion)
+        public void AddLoginSuggestion(UserLoginSuggestion suggestion)
         {
-            var list = GetSuggestions() ?? new List<UserLoginSuggestion>();
+            var list = GetLoginSuggestions() ?? new List<UserLoginSuggestion>();
             if (!list.Contains(suggestion))
                 list.Add(suggestion);
-            SetSuggestions(list);
+            SetLoginSuggestions(list);
+        }
+
+        public void AddStudentAddSuggestion(StudentAddSuggestion suggestion)
+        {
+            var list = GetStudentAddSuggestions() ?? new List<StudentAddSuggestion>();
+            if (!list.Contains(suggestion))
+                list.Add(suggestion);
+            SetAddStudentSuggetions(list);
         }
 
         public SuggestionFileManager()
         {
+            studentService = new StudentService(new StudentContext());
         }
     }
 }

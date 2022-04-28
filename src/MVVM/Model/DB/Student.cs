@@ -14,8 +14,7 @@ namespace StudentSystem.MVVM.Model.DB
         public int Course { get; set; }
         public int Group { get; set; }
         public int Stream { get; set; }
-        public decimal AverageGrade { get; set; }
         public string PhoneNumber { get; set; }
-        public string Email { get; set; }   
+        public string Email { get; set; }
     }
 }
