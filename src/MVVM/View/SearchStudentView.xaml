@@ -3,10 +3,77 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StudentSystem.MVVM.View"
+             xmlns:local="clr-namespace:StudentSystem.MVVM.View" xmlns:controls="clr-namespace:StudentSystem.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="SEARCH"></Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <controls:SuggestTextBox
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Items="{Binding Suggestions}"
+            ValueMember="{Binding SuggestedFacultyNumberKeyPair}"
+            AutoSuggest="{Binding BestSuggestion.SuggestedFacultyNumber}"
+            Placeholder="Търси"
+            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Width="200"
+            Margin="0, 0, 50, 0"/>
+        <Button Command="{Binding SearchCommand}" Grid.Row="0" Grid.Column="0" Width="80" Height="30" HorizontalAlignment="Right" Content="Търси" Style="{StaticResource ButtonStyle}" Margin="0, 0, 20, 0"/>
+        <ListView Grid.Row="1" Grid.Column="0"  ItemsSource="{Binding StudentsResults}" Height="350" Margin="0,0,0,-0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Faculty Number"
+                            DisplayMemberBinding="{Binding FacultyNumber}"
+                                    Width="Auto"/>
+                    <GridViewColumn Header="Name"
+                            DisplayMemberBinding="{Binding Name}"
+                                    Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Student.FacultyNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="160" Height="20" Margin="0, 30, 0, 0" IsEnabled="False"/>
+        <Label Content="Факултетен Номер" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, 20"/>
+        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Име" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Презиме" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.MiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Фамилия" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Факултет" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Faculty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Специалност" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Specialty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Курс" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Course, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Група" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Group, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Поток" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Stream, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Телефонен номер" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+            <Label Content="Имейл" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 20"/>
+            <TextBox Text="{Binding Student.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Width="160" Height="20" Margin="0, 20, 0, 0" IsEnabled="False"/>
+        </Grid>
     </Grid>
 </UserControl>
