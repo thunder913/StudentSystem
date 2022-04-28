@@ -38,7 +38,8 @@ namespace StudentSystem.Utils
                     Group = x.Group.ToString(),
                     LastName = x.LastName,
                     MiddleName = x.MiddleName,
-                    PhoneNumber = x.PhoneNumber
+                    PhoneNumber = x.PhoneNumber,
+                    SuggestedFacultyNumber = x.FacultyNumber,
                 }).ToList();
         }
 

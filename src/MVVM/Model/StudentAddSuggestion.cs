@@ -20,6 +20,16 @@ namespace StudentSystem.MVVM.Model
         private string _group;
         private string _course;
         private string _stream;
+        private string _suggestedFacultyNumber;
+
+        public string SuggestedFacultyNumber
+        {
+            get => _suggestedFacultyNumber; set
+            {
+                _suggestedFacultyNumber = value;
+                OnPropertyChanged();
+            }
+        }
         public string FacultyNumber
         {
             get => _facultyNumber; set

@@ -33,125 +33,93 @@
         <Label Content="Поток" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Телефонен номер" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Имейл" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding FacultyNumberKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.FacultyNumber}"
-            Placeholder="Факултетен номер"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.FacultyNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="2"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding FirstNameKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.FirstName}"
-            Placeholder="Име"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="3"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding MiddleNameKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.MiddleName}"
-            Placeholder="Презиме"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.MiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="4"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding LastNameKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.LastName}"
-            Placeholder="Фамилно име"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="5"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding FacultyKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Faculty}"
-            Placeholder="Факултет"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.Faculty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="6"
             Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding SpecialtyKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Specialty}"
-            Placeholder="Специалност"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.Specialty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="1"
             Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding CourseKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Course}"
-            Placeholder="Курс"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.Course, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="2"
             Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding GroupKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Group}"
-            Placeholder="Група"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.Group, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="3"
             Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding StreamKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Stream}"
-            Placeholder="Поток"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.Stream, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Items="{Binding Suggestions}"
-            ValueMember="{Binding PhoneNumberKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.PhoneNumber}"
-            Placeholder="Телефон"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry.PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <controls:SuggestTextBox
+        <TextBox
             Grid.Row="5"
             Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
+            Text="{Binding SuggestionEntry.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Width="200"/>
+        <Label Content="Въведи скорошен"/>
+        <controls:SuggestTextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
             Items="{Binding Suggestions}"
-            ValueMember="{Binding EmailKeyPair}"
-            AutoSuggest="{Binding BestSuggestion.Email}"
-            Placeholder="Имейл"
+            ValueMember="{Binding SuggestedFacultyNumberKeyPair}"
+            AutoSuggest="{Binding BestSuggestion.SuggestedFacultyNumber}"
+            Placeholder="Скорошен"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
         <Button 

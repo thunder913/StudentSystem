@@ -23,6 +23,7 @@ namespace StudentSystem.MVVM.ViewModel
         private readonly SuggestionFileManager _suggestionFileManager;
         private StudentAddSuggestion _bestSuggestion;
         private StudentAddSuggestion _suggestionEntry;
+        private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
         private KeyValuePair<object, string> _facultyNumberKeyPair;
         private KeyValuePair<object, string> _firstNameKeyPair;
         private KeyValuePair<object, string> _lastNameKeyPair;
@@ -42,8 +43,8 @@ namespace StudentSystem.MVVM.ViewModel
                 _suggestionEntry = value;
                 if (_suggestionEntry != null)
                 {
-                    if (_suggestionEntry.FacultyNumber != null)
-                        Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
+                    if (_suggestionEntry.SuggestedFacultyNumber != null)
+                        Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.SuggestedFacultyNumber)).ToList();
                 }
 
                 OnPropertyChanged();
@@ -61,7 +62,7 @@ namespace StudentSystem.MVVM.ViewModel
                 var inputLengthThreshold =
                     UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
                 BestSuggestion = new StudentAddSuggestion();
-                BestSuggestion.FacultyNumber = SuggestionEntry.FacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
+                BestSuggestion.SuggestedFacultyNumber = SuggestionEntry.SuggestedFacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
             }
         }
         public StudentAddSuggestion BestSuggestion
@@ -153,6 +154,16 @@ namespace StudentSystem.MVVM.ViewModel
             }
         }
 
+        public KeyValuePair<object, string> SuggestedFacultyNumberKeyPair
+        {
+            get => _suggestedFacultyNumberKeyPair;
+            set
+            {
+                _suggestedFacultyNumberKeyPair = value;
+                OnPropertyChanged();
+            }
+        }
+
         public KeyValuePair<object, string> SpecialtyKeyPair
         {
             get => _specialtyKeyPair;
@@ -220,6 +231,7 @@ namespace StudentSystem.MVVM.ViewModel
             PhoneNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "PhoneNumber");
             SpecialtyKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Specialty");
             StreamKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Stream");
+            SuggestedFacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "SuggestedFacultyNumber");
             CurrentViewModelParent = this;
             CurrentViewModel = null;
             AddCommand = new AddStudentCommand(this);
@@ -228,7 +240,7 @@ namespace StudentSystem.MVVM.ViewModel
 
         public void AddStudent()
         {
-            
+
             _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
             {
                 Specialty = SuggestionEntry.Specialty,
