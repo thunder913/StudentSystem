@@ -1,4 +1,5 @@
 ﻿using StudentSystem.MVVM.Model.DB;
+using StudentSystem.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace StudentSystem.DAL
 
         public List<Student> GetStudentsByFacNumber(List<string> facultyNumbers)
         {
-            return _studentContext.Students.Where(s => facultyNumbers.Contains(s.FacultyNumber)).ToList();
+            return _studentContext.Students
+                .Where(s => facultyNumbers.Contains(s.FacultyNumber))
+                .Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5)
+                .ToList();
         }
 
         public void AddStudent(string specialty, int stream, int course, int group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)

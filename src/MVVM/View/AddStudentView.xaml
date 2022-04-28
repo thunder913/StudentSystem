@@ -110,7 +110,10 @@
             VerticalAlignment="Center"
             Text="{Binding SuggestionEntry.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"/>
-        <Label Content="Въведи скорошен"/>
+        <Label 
+            Content="Въведи скорошен" 
+            Grid.Row="0" Grid.Column="1" 
+            VerticalAlignment="Center"/>
         <controls:SuggestTextBox
             Grid.Row="0"
             Grid.Column="1"
