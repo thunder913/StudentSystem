@@ -24,17 +24,6 @@ namespace StudentSystem.MVVM.ViewModel
         private StudentAddSuggestion _bestSuggestion;
         private StudentAddSuggestion _suggestionEntry;
         private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
-        private KeyValuePair<object, string> _facultyNumberKeyPair;
-        private KeyValuePair<object, string> _firstNameKeyPair;
-        private KeyValuePair<object, string> _lastNameKeyPair;
-        private KeyValuePair<object, string> _groupKeyPair;
-        private KeyValuePair<object, string> _emailKeyPair;
-        private KeyValuePair<object, string> _phoneNumberKeyPair;
-        private KeyValuePair<object, string> _middleNameKeyPair;
-        private KeyValuePair<object, string> _facultyKeyPair;
-        private KeyValuePair<object, string> _specialtyKeyPair;
-        private KeyValuePair<object, string> _courseKeyPair;
-        private KeyValuePair<object, string> _streamKeyPair;
         public StudentAddSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
@@ -74,85 +63,6 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public KeyValuePair<object, string> FacultyNumberKeyPair
-        {
-            get => _facultyNumberKeyPair;
-            set
-            {
-                _facultyNumberKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> FirstNameKeyPair
-        {
-            get => _firstNameKeyPair;
-            set
-            {
-                _firstNameKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> LastNameKeyPair
-        {
-            get => _lastNameKeyPair;
-            set
-            {
-                _lastNameKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> GroupKeyPair
-        {
-            get => _groupKeyPair;
-            set
-            {
-                _groupKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> EmailKeyPair
-        {
-            get => _emailKeyPair;
-            set
-            {
-                _emailKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> PhoneNumberKeyPair
-        {
-            get => _phoneNumberKeyPair;
-            set
-            {
-                _phoneNumberKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> MiddleNameKeyPair
-        {
-            get => _middleNameKeyPair;
-            set
-            {
-                _middleNameKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> FacultyKeyPair
-        {
-            get => _facultyKeyPair;
-            set
-            {
-                _facultyKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
 
         public KeyValuePair<object, string> SuggestedFacultyNumberKeyPair
         {
@@ -160,36 +70,6 @@ namespace StudentSystem.MVVM.ViewModel
             set
             {
                 _suggestedFacultyNumberKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> SpecialtyKeyPair
-        {
-            get => _specialtyKeyPair;
-            set
-            {
-                _specialtyKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> CourseKeyPair
-        {
-            get => _courseKeyPair;
-            set
-            {
-                _courseKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public KeyValuePair<object, string> StreamKeyPair
-        {
-            get => _streamKeyPair;
-            set
-            {
-                _streamKeyPair = value;
                 OnPropertyChanged();
             }
         }
@@ -220,17 +100,6 @@ namespace StudentSystem.MVVM.ViewModel
             _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
             SuggestionEntry = new StudentAddSuggestion();
             Suggestions ??= new List<StudentAddSuggestion>();
-            FacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "FacultyNumber");
-            CourseKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Course");
-            EmailKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Email");
-            FacultyKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Faculty");
-            FirstNameKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "FirstName");
-            GroupKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Group");
-            LastNameKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "LastName");
-            MiddleNameKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "MiddleName");
-            PhoneNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "PhoneNumber");
-            SpecialtyKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Specialty");
-            StreamKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "Stream");
             SuggestedFacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "SuggestedFacultyNumber");
             CurrentViewModelParent = this;
             CurrentViewModel = null;
