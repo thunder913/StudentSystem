@@ -77,11 +77,14 @@
     <Compile Include="Converter\LengthConverter.cs" />
     <Compile Include="Converter\ObjectPathConverter.cs" />
     <Compile Include="DAL\StudentContext.cs" />
+    <Compile Include="DAL\StudentService.cs" />
     <Compile Include="DAL\UserService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MVVM\Model\DB\Settings.cs" />
     <Compile Include="MVVM\Model\DB\Student.cs" />
+    <Compile Include="MVVM\Model\StudentAddSuggestion.cs" />
     <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Command\AddStudentCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\LoginCommand.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
@@ -109,6 +112,7 @@
     </Compile>
     <Compile Include="Utils\Cryptography.cs" />
     <Compile Include="Utils\SuggestionFileManager.cs" />
+    <Compile Include="Utils\SuggestionType.cs" />
     <Compile Include="Utils\UserInfo.cs" />
     <Page Include="Controls\CustomComboBox.xaml">
       <SubType>Designer</SubType>
@@ -187,6 +191,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="addstudent.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="logindata.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

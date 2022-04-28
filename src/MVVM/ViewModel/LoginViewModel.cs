@@ -75,7 +75,7 @@ namespace StudentSystem.MVVM.ViewModel
         public LoginViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
-            _allSuggestions = _suggestionFileManager.GetSuggestions();
+            _allSuggestions = _suggestionFileManager.GetLoginSuggestions();
             SuggestionEntry = new UserLoginSuggestion();
             UserKeyPair =
                 new KeyValuePair<object, string>(_suggestionEntry, "Username");
@@ -98,7 +98,7 @@ namespace StudentSystem.MVVM.ViewModel
         {
             if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
             {
-                _suggestionFileManager.AddSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
+                _suggestionFileManager.AddLoginSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
                 CurrentViewModelParent = new MainViewModel();
             }
             else
