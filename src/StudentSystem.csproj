@@ -80,6 +80,7 @@
     <Compile Include="DAL\UserService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MVVM\Model\DB\Settings.cs" />
+    <Compile Include="MVVM\Model\DB\Student.cs" />
     <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\LoginCommand.cs" />
