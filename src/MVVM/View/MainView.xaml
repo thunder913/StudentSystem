@@ -35,7 +35,7 @@
                     Height="50"
                     Foreground="White"
                     FontSize="14"
-                    Command="{Binding LibraryCommand}"/>
+                    Command="{Binding AddStudentCommand}"/>
 
             <RadioButton
                     Style="{StaticResource MenuButtonTheme}"
@@ -43,7 +43,7 @@
                     Height="50"
                     Foreground="White"
                     FontSize="14"
-                    Command="{Binding SettingsCommand}"/>
+                    Command="{Binding SearchStudentCommand}"/>
         </StackPanel>
         <ContentControl Grid.Row="0"
                         Grid.RowSpan="2"

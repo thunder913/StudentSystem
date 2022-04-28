@@ -80,6 +80,7 @@
     <Compile Include="DAL\UserService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MVVM\Model\DB\Settings.cs" />
+    <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\LoginCommand.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
@@ -89,6 +90,10 @@
     <Compile Include="MVVM\Model\UserLoginSuggestion.cs" />
     <Compile Include="MVVM\ViewModel\Command\UpdateSettingsCommand.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SearchStudentViewModel.cs" />
+    <Compile Include="MVVM\View\AddStudentView.xaml.cs">
+      <DependentUpon>AddStudentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -97,6 +102,9 @@
     </Compile>
     <Compile Include="MVVM\View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\SearchStudentView.xaml.cs">
+      <DependentUpon>SearchStudentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Cryptography.cs" />
     <Compile Include="Utils\SuggestionFileManager.cs" />
@@ -123,6 +131,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\View\AddStudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\SearchStudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

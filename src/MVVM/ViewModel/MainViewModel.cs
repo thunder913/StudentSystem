@@ -19,8 +19,8 @@ namespace StudentSystem.MVVM.ViewModel
         private KeyValuePair<object, string> _itemKeyPair;
 
         public ICommand HomeCommand { get; set; }
-        public ICommand LibraryCommand { get; set; }
-        public ICommand SettingsCommand { get; set; }
+        public ICommand AddStudentCommand { get; set; }
+        public ICommand SearchStudentCommand { get; set; }
         public ICommand CycleSuggestionCommand { get; set; }
         public int SuggestionIndex { get; set; } = -1;
         public bool IsCycling { get; set; }
@@ -56,6 +56,8 @@ namespace StudentSystem.MVVM.ViewModel
         public MainViewModel()
         {
             HomeCommand = new NavigationCommand<HomeViewModel>(this);
+            SearchStudentCommand = new NavigationCommand<SearchStudentViewModel>(this);
+            AddStudentCommand = new NavigationCommand<AddStudentViewModel>(this);
             CycleSuggestionCommand = new CycleSuggestionCommand(this);
             CurrentViewModel = new HomeViewModel();
         }

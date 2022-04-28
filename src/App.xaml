@@ -20,6 +20,12 @@
             <DataTemplate DataType="{x:Type viewModel:MainViewModel}">
                 <view:MainView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddStudentViewModel}">
+                <view:AddStudentView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SearchStudentViewModel}">
+                <view:SearchStudentView/>
+            </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
