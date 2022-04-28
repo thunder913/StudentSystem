@@ -19,6 +19,11 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <TextBlock Text="Студентска система"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       FontSize="22"
+                       Foreground="Black"/>
         <Label Grid.Column="1" FontSize="30"  RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
             Login
         </Label>
@@ -36,8 +41,8 @@
             AutoSuggest="{Binding BestSuggestionPassword}"
             Placeholder="Парола"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-            Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Center"/>
-        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Right">Password</Label>
+            Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Right">Password</Label>
         <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0" Content="Login" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">

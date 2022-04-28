@@ -81,8 +81,8 @@ namespace StudentSystem.MVVM.ViewModel
                 new KeyValuePair<object, string>(_suggestionEntry, "Username");
             PassKeyPair =
                 new KeyValuePair<object, string>(_suggestionEntry, "Password");
-            CurrentViewModelParent = new MainViewModel(this);
-            CurrentViewModel = this;
+            CurrentViewModelParent = this;
+            CurrentViewModel = null;
             LoginCommand = new LoginCommand(this);
             RegisterCommand = new RegisterCommand(this);
             _userService = new UserService(new StudentContext());
@@ -99,7 +99,7 @@ namespace StudentSystem.MVVM.ViewModel
             if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
             {
                 _suggestionFileManager.AddSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
-                CurrentViewModelParent = new MainViewModel(new HomeViewModel());
+                CurrentViewModelParent = new MainViewModel();
             }
             else
             {
@@ -111,8 +111,7 @@ namespace StudentSystem.MVVM.ViewModel
         public void Register(object parameter)
         {
             _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
-            CurrentViewModelParent = new MainViewModel(this);
-            CurrentViewModel = new HomeViewModel();
+            MessageBox.Show("Успешно се регистрирахте!");
         }
 
         public IViewModel CurrentViewModel

@@ -31,7 +31,7 @@
 
             <RadioButton
                     Style="{StaticResource MenuButtonTheme}"
-                    Content="Библиотека"
+                    Content="Добави Студент"
                     Height="50"
                     Foreground="White"
                     FontSize="14"
@@ -39,25 +39,16 @@
 
             <RadioButton
                     Style="{StaticResource MenuButtonTheme}"
-                    Content="Настройки"
+                    Content="Търси Студент"
                     Height="50"
                     Foreground="White"
                     FontSize="14"
                     Command="{Binding SettingsCommand}"/>
         </StackPanel>
-        <ContentControl Grid.Row="1"
+        <ContentControl Grid.Row="0"
+                        Grid.RowSpan="2"
                             Grid.Column="1"
                             Margin="10"
-                            Content="{Binding CurrentViewModel}"/>
-        <Button 
-            Grid.Column="1" 
-            Grid.Row="0"
-            Width="180"
-            Background="DarkRed"
-            Content="Излез"
-            FontSize="28"
-            Foreground="White"
-            HorizontalAlignment="Right"
-            Command="{Binding SignOutCommand}" />
+                            Content="{Binding CurrentViewModel, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

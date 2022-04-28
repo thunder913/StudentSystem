@@ -22,8 +22,6 @@ namespace StudentSystem.MVVM.ViewModel
         public ICommand LibraryCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
         public ICommand CycleSuggestionCommand { get; set; }
-        public ICommand SignOutCommand { get; set; }
-
         public int SuggestionIndex { get; set; } = -1;
         public bool IsCycling { get; set; }
 
@@ -55,22 +53,21 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public MainViewModel(IViewModel model) : base()
+        public MainViewModel()
         {
-            CurrentViewModel = model;
             HomeCommand = new NavigationCommand<HomeViewModel>(this);
             CycleSuggestionCommand = new CycleSuggestionCommand(this);
-            this.SignOutCommand = new SignOutCommand(this);
+            CurrentViewModel = new HomeViewModel();
         }
 
         public void ExecuteCycleSuggestions(object parameter)
         {
         }
 
-        public void SignOut()
-        {
-            UserInfo.CurrentUser = null;
-            CurrentViewModel = new LoginViewModel();
-        }
+        //public void SignOut()
+        //{
+        //    UserInfo.CurrentUser = null;
+        //    CurrentViewModel = new LoginViewModel();
+        //}
     }
 }

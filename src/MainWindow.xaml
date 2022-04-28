@@ -19,7 +19,7 @@
         <viewModel:LoginViewModel/>
     </Window.DataContext>
 
-    <Border Background="#FF85DCBA"
+    <Border Background="#a3b4b8"
             CornerRadius="20">
         <ContentControl Content="{Binding CurrentViewModelParent}"/>
     </Border>
