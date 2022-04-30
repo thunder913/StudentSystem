@@ -13,6 +13,7 @@ namespace StudentSystem.Utils
     {
         private const string LoginFileName = "logindata.dat";
         private const string AddStudentFileName = "addstudent.dat";
+        private const string SearchStudentFileName = "searchstudent.dat";
         private StudentService studentService { get; set; }
         public List<StudentAddSuggestion> GetStudentAddSuggestions()
         {
@@ -43,6 +44,21 @@ namespace StudentSystem.Utils
                 }).ToList();
         }
 
+        public List<StudentSearchSuggestion> GetStudentSearchSuggestion()
+        {
+            var data = Cryptography.Decrypt(File.ReadAllText(SearchStudentFileName), "yolo123");
+            var lines = data.Split('\n');
+            List<string> facultyNumbers = new List<string>();
+            foreach (var line in lines)
+            {
+                facultyNumbers.Add(line);
+            }
+
+            return facultyNumbers.Select(x => new StudentSearchSuggestion()
+            {
+                FacultyNumber = x,
+            }).ToList();
+        }
         public List<UserLoginSuggestion> GetLoginSuggestions(){
             var data = Cryptography.Decrypt(File.ReadAllText(LoginFileName), "yolo123");
             var lines = data.Split('\n');
@@ -67,6 +83,16 @@ namespace StudentSystem.Utils
                 sb.Append("\n");
             }
             File.WriteAllText(AddStudentFileName, Cryptography.Encrypt(sb.ToString(), "yolo123"));
+        }
+        public void SetSearchStudentSuggestions(List<StudentSearchSuggestion> suggestions)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var suggestion in suggestions)
+            {
+                sb.Append(suggestion.FacultyNumber);
+                sb.Append("\n");
+            }
+            File.WriteAllText(SearchStudentFileName, Cryptography.Encrypt(sb.ToString(), "yolo123"));
         }
 
         public void SetLoginSuggestions(List<UserLoginSuggestion> suggestions)
@@ -96,6 +122,13 @@ namespace StudentSystem.Utils
             if (!list.Contains(suggestion))
                 list.Add(suggestion);
             SetAddStudentSuggetions(list);
+        }
+        public void AddStudentSearchSuggestion(StudentSearchSuggestion suggestion)
+        {
+            var list = GetStudentSearchSuggestion() ?? new List<StudentSearchSuggestion>();
+            if (!list.Any(x => x.FacultyNumber == suggestion.FacultyNumber))
+                list.Add(suggestion);
+            SetSearchStudentSuggestions(list);
         }
 
         public SuggestionFileManager()

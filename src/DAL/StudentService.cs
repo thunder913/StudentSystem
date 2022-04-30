@@ -24,6 +24,13 @@ namespace StudentSystem.DAL
                 .ToList();
         }
 
+        public List<Student> SearchStudentsByFacultyNumber(string facultyNumber)
+        {
+            return _studentContext.Students
+                .Where(x => x.FacultyNumber.ToLower().Contains(facultyNumber.ToLower()))
+                .Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5)
+                .ToList();
+        }
         public void AddStudent(string specialty, int stream, int course, int group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)
         {
             _studentContext.Students.Add(new Student
