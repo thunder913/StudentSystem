@@ -166,7 +166,12 @@ namespace StudentSystem.MVVM.ViewModel
             {
                 _suggestions = value;
                 OnPropertyChanged();
-                if (!_suggestions.Any()) return;
+                if (!_suggestions.Any())
+                {
+                    BestSuggestionUsername = null;
+                    BestSuggestionPassword = null;
+                    return;
+                }
                 var first = _suggestions.First();
                 var inputLengthThreshold =
                     UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
