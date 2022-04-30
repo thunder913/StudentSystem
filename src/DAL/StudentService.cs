@@ -16,6 +16,11 @@ namespace StudentSystem.DAL
             _studentContext = studentContext;
         }
 
+        public Student GetStudent(string facultyNumber)
+        {
+            return _studentContext.Students.FirstOrDefault(s => s.FacultyNumber.ToLower() == facultyNumber.ToLower());
+        }
+
         public List<Student> GetStudentsByFacNumber(List<string> facultyNumbers)
         {
             return _studentContext.Students
@@ -27,7 +32,7 @@ namespace StudentSystem.DAL
         public List<Student> SearchStudentsByFacultyNumber(string facultyNumber)
         {
             return _studentContext.Students
-                .Where(x => x.FacultyNumber.ToLower().Contains(facultyNumber.ToLower()))
+                .Where(s => s.FacultyNumber.ToLower().Contains(facultyNumber.ToLower()))
                 .Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5)
                 .ToList();
         }

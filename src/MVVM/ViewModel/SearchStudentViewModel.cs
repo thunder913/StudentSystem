@@ -25,6 +25,8 @@ namespace StudentSystem.MVVM.ViewModel
         private StudentSearchSuggestion _suggestionEntry;
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
+        private StudentSearchResult _selectedStudent;
+        private Student _student;
         public ICommand SearchCommand { get; set; }
         public StudentSearchSuggestion SuggestionEntry
         {
@@ -75,7 +77,25 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public Student Student { get; set; }
+        public Student Student
+        {
+            get => _student;
+            set
+            {
+                _student = value;
+                OnPropertyChanged();
+            }
+        }
+        public StudentSearchResult SelectedStudent
+        {
+            get => _selectedStudent;
+            set
+            {
+                _selectedStudent = value;
+                this.Student = _studentService.GetStudent(value.FacultyNumber);
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<StudentSearchResult> StudentsResults { get; set; } = new ObservableCollection<StudentSearchResult>();
         public IViewModel CurrentViewModel
         {
