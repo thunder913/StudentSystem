@@ -132,7 +132,7 @@ namespace StudentSystem.MVVM.ViewModel
 
         public void Search()
         {
-            var facNumber = ((StudentSearchSuggestion)this.FacultyNumberKeyPair.Key).FacultyNumber;
+            var facNumber = this.SuggestionEntry.FacultyNumber;
             var students = this._studentService.SearchStudentsByFacultyNumber(facNumber);
             this.StudentsResults.Clear();
             foreach (var item in students)

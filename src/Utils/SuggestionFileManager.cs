@@ -22,7 +22,10 @@ namespace StudentSystem.Utils
             List<string> facultyNumbers = new List<string>();
             foreach (var line in lines)
             {
-                facultyNumbers.Add(line);
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    facultyNumbers.Add(line);
+                }
             }
 
             return studentService
@@ -51,7 +54,10 @@ namespace StudentSystem.Utils
             List<string> facultyNumbers = new List<string>();
             foreach (var line in lines)
             {
-                facultyNumbers.Add(line);
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    facultyNumbers.Add(line);
+                }
             }
 
             return facultyNumbers.Select(x => new StudentSearchSuggestion()
@@ -59,24 +65,32 @@ namespace StudentSystem.Utils
                 FacultyNumber = x,
             }).ToList();
         }
-        public List<UserLoginSuggestion> GetLoginSuggestions(){
+        public List<UserLoginSuggestion> GetLoginSuggestions()
+        {
             var data = Cryptography.Decrypt(File.ReadAllText(LoginFileName), "yolo123");
             var lines = data.Split('\n');
             List<UserLoginSuggestion> suggestions = new List<UserLoginSuggestion>();
             foreach (var line in lines)
             {
-                var index = line.IndexOf('+');
-                if (index < 0) continue;
-                var uls = new UserLoginSuggestion(line.Substring(0, index).Trim(), line.Substring(index + 1).Trim());
-                suggestions.Add(uls);
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    var index = line.IndexOf('+');
+                    if (index < 0) continue;
+                    var uls = new UserLoginSuggestion(line.Substring(0, index).Trim(), line.Substring(index + 1).Trim());
+                    suggestions.Add(uls);
+                }                    
             }
 
             return suggestions;
         }
-        
+
         public void SetAddStudentSuggetions(List<StudentAddSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
+            if (suggestions.Count >= 5)
+            {
+                suggestions = suggestions.Take(5).ToList();
+            }
             foreach (var suggestion in suggestions)
             {
                 sb.Append(suggestion.FacultyNumber);
@@ -87,6 +101,10 @@ namespace StudentSystem.Utils
         public void SetSearchStudentSuggestions(List<StudentSearchSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
+            if (suggestions.Count >= 5)
+            {
+                suggestions = suggestions.Take(5).ToList();
+            }
             foreach (var suggestion in suggestions)
             {
                 sb.Append(suggestion.FacultyNumber);
@@ -98,6 +116,10 @@ namespace StudentSystem.Utils
         public void SetLoginSuggestions(List<UserLoginSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
+            if (suggestions.Count >= 5)
+            {
+                suggestions = suggestions.Take(5).ToList();
+            }
             foreach (var suggestion in suggestions)
             {
                 sb.Append(suggestion.Username);
@@ -111,23 +133,38 @@ namespace StudentSystem.Utils
         public void AddLoginSuggestion(UserLoginSuggestion suggestion)
         {
             var list = GetLoginSuggestions() ?? new List<UserLoginSuggestion>();
+            if (list.Any(x => x.Equals(suggestion)))
+            {
+                var index = list.FindIndex(x => x.Equals(suggestion));
+                list.RemoveAt(index);
+            }
             if (!list.Contains(suggestion))
-                list.Add(suggestion);
+                list.Insert(0, suggestion);
             SetLoginSuggestions(list);
         }
 
         public void AddStudentAddSuggestion(StudentAddSuggestion suggestion)
         {
             var list = GetStudentAddSuggestions() ?? new List<StudentAddSuggestion>();
+            if (list.Any(x => x.FacultyNumber == suggestion.FacultyNumber))
+            {
+                var index = list.FindIndex(x => x.FacultyNumber == suggestion.FacultyNumber);
+                list.RemoveAt(index);
+            }            
             if (!list.Contains(suggestion))
-                list.Add(suggestion);
+                list.Insert(0, suggestion);
             SetAddStudentSuggetions(list);
         }
         public void AddStudentSearchSuggestion(StudentSearchSuggestion suggestion)
         {
             var list = GetStudentSearchSuggestion() ?? new List<StudentSearchSuggestion>();
+            if (list.Any(x => x.FacultyNumber == suggestion.FacultyNumber))
+            {
+                var index = list.FindIndex(x => x.FacultyNumber == suggestion.FacultyNumber);
+                list.RemoveAt(index);
+            }
             if (!list.Any(x => x.FacultyNumber == suggestion.FacultyNumber))
-                list.Add(suggestion);
+                list.Insert(0, suggestion);
             SetSearchStudentSuggestions(list);
         }
 
