@@ -62,16 +62,6 @@ namespace StudentSystem.MVVM.ViewModel
             }
         }
 
-        public bool HasError
-        {
-            get => _hasError;
-            set
-            {
-                _hasError = value;
-                OnPropertyChanged();
-            }
-        }
-
         public LoginViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -104,7 +94,6 @@ namespace StudentSystem.MVVM.ViewModel
             else
             {
                 MessageBox.Show("Невалидно потребителско име или парола!");
-                HasError = true;
             }
         }
 
