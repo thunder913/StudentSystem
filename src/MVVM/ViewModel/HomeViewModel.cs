@@ -18,17 +18,6 @@ namespace StudentSystem.MVVM.ViewModel
 
         private string _username { get; set; } = "Pesho!";
 
-        public bool AutoComplete
-        {
-            get => _autoComplete;
-            set
-            {
-                _autoComplete = value;
-                OnPropertyChanged();
-            }
-
-        }
-
         public List<string> DateIntervalSettingsList
         {
             get => _dateIntervalSettingsList;
@@ -99,7 +88,6 @@ namespace StudentSystem.MVVM.ViewModel
         public HomeViewModel()
         {
             this.Username = UserInfo.CurrentUser.Username;
-            AutoComplete = UserInfo.CurrentUser.Settings.AutoComplete;
             UpdateSettingsCommand = new UpdateSettingsCommand(this);
             SuggestionCount = UserInfo.CurrentUser.Settings.SuggestionsCount;
             _userService = new UserService(new StudentContext());
@@ -111,7 +99,6 @@ namespace StudentSystem.MVVM.ViewModel
         private string _statusMessage;
         private string _selectedDateInterval;
         private List<string> _dateIntervalSettingsList;
-        private bool _autoComplete;
 
         public bool CanExecute()
         {
@@ -122,31 +109,8 @@ namespace StudentSystem.MVVM.ViewModel
         {
             var user = UserInfo.CurrentUser;
             var settings = user.Settings;
-            settings.AutoComplete = _autoComplete;
             settings.SuggestionsCount = _suggestionCount;
             _userService.UpdateUserSettings(user.UserId, settings);
-            HasStatus = true;
-            StatusMessage = "Настройките са запазени!";
-        }
-
-        public string StatusMessage
-        {
-            get => _statusMessage;
-            set
-            {
-                _statusMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool HasStatus
-        {
-            get => _hasStatus;
-            set
-            {
-                _hasStatus = value;
-                OnPropertyChanged();
-            }
         }
     }
 }

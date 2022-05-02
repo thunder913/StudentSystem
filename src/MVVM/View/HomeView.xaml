@@ -53,23 +53,7 @@
                Grid.Row="2" 
                Height="26" 
                RenderTransformOrigin="0.75,0.61"/>
-        <Label Content="Автоматично допълване:"
-               HorizontalAlignment="Right" 
-               VerticalAlignment="Bottom" 
-               Width="150" 
-               Grid.Row="2" 
-               Height="26"
-               RenderTransformOrigin="0.75,0.61"
-               Margin="0, 0, 0, 35"/>
-        <CheckBox IsChecked="{Binding AutoComplete, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                  Grid.Column="1" 
-                  Margin="0, 0, 0, 38"
-                  HorizontalAlignment="Left" 
-                  Grid.Row="2" 
-                  VerticalAlignment="Bottom" 
-                  RenderTransformOrigin="0.666,-0.243" 
-                  Height="16" 
-                  Width="16"/>
+
         <Label 
             Content="Дължина преди подсказки:" 
             HorizontalAlignment="Right" 

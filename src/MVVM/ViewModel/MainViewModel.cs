@@ -15,7 +15,6 @@ namespace StudentSystem.MVVM.ViewModel
         private IViewModel _currentViewModel;
 
         private IViewModel _currentViewModelParent;
-        private bool _autoComplete;
         private KeyValuePair<object, string> _itemKeyPair;
 
         public ICommand HomeCommand { get; set; }
