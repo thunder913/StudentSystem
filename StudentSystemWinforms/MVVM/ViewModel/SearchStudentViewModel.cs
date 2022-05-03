@@ -13,6 +13,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public class SearchStudentViewModel : ViewModelBase
     {
+        private const string DefaultSearchTerm = "Търси...";
         private string _searchWord;
         private StudentService _studentService;
         private SuggestionFileManager _suggestionFileManager;
@@ -147,7 +148,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         public void RemoveText(object sender, EventArgs e)
         {
             var textBox = sender as TextBox;
-            if (textBox.Text == "Търси...")
+            if (textBox.Text == DefaultSearchTerm)
             {
                 SearchWord = "";
             }
@@ -156,7 +157,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         public void AddText(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace((sender as TextBox).Text))
-                SearchWord = "Търси...";
+                SearchWord = DefaultSearchTerm;
         }
 
         internal void SelectedItemEvent(object sender)
@@ -172,7 +173,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         public SearchStudentViewModel(ListView listView)
         {
             this.listView = listView;
-            SearchWord = "Търси...";
+            SearchWord = DefaultSearchTerm;
             _studentService = new StudentService(new StudentContext());
             _suggestionFileManager = new SuggestionFileManager();
             
@@ -183,7 +184,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 
         public void Search()
         {
-            var students = this._studentService.SearchStudentsByFacultyNumber(SearchWord);
+            var students = this._studentService.SearchStudentsByFacultyNumber(SearchWord != DefaultSearchTerm ? SearchWord : null);
             this.listView.Items.Clear();
             foreach (var item in students)
             {
@@ -193,10 +194,13 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
             if (students.Count > 0)
             {
-                _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = SearchWord });
-                _suggestions = _suggestionFileManager.GetStudentSearchSuggestion();
-                AutoCompleteCollection.Clear();
-                AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+                if (SearchWord != DefaultSearchTerm)
+                {
+                    _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = SearchWord });
+                    _suggestions = _suggestionFileManager.GetStudentSearchSuggestion();
+                    AutoCompleteCollection.Clear();
+                    AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+                }
             }
         }
 

@@ -31,7 +31,7 @@ namespace StudentSystemCommon.DAL
         public List<Student> SearchStudentsByFacultyNumber(string facultyNumber)
         {
             return _studentContext.Students
-                .Where(s => s.FacultyNumber.ToLower().Contains(facultyNumber.ToLower()))
+                .Where(s => string.IsNullOrEmpty(facultyNumber) || s.FacultyNumber.ToLower().Contains(facultyNumber.ToLower()))
                 .ToList();
         }
         public void AddStudent(string specialty, string stream, string course, string group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)
