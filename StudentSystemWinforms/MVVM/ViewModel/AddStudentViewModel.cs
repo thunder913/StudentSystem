@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System;
 
 namespace StudentSystemWinForms.MVVM.ViewModel
 {
@@ -152,23 +153,32 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 
         public void AddStudentClicked()
         {
-            _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+            try
             {
-                Specialty = Specialty,
-                Faculty = Faculty,
-                FacultyNumber = FacultyNumber,
-                FirstName = FirstName,
-                LastName = LastName,
-                MiddleName = MiddleName,
-                PhoneNumber = PhoneNumber,
-                Email = Email,
-                Group = Group,
-                Stream = Stream,
-                Course = Course
-            });
-            studentService.AddStudent(Specialty, int.Parse(Stream), int.Parse(Course), int.Parse(Group), FacultyNumber, FirstName, LastName, MiddleName, PhoneNumber, Email, Faculty);
-            _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
-            //TODO make all the necessary checks whether the student is already in the database and all the data is correct
+                studentService.AddStudent(Specialty, Stream, Course, Group, FacultyNumber, FirstName, LastName, MiddleName, PhoneNumber, Email, Faculty);
+                _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+                {
+                    Specialty = Specialty,
+                    Faculty = Faculty,
+                    FacultyNumber = FacultyNumber,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    MiddleName = MiddleName,
+                    PhoneNumber = PhoneNumber,
+                    Email = Email,
+                    Group = Group,
+                    Stream = Stream,
+                    Course = Course
+                });
+                _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
+                AutoCompleteCollection.Clear();
+                AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+                MessageBox.Show("Успешно добави студент!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void FillTextBoxData(StudentAddSuggestion suggestion)
