@@ -82,9 +82,9 @@
             // searchResult
             // 
             this.searchResult.HideSelection = false;
-            this.searchResult.Location = new System.Drawing.Point(66, 94);
+            this.searchResult.Location = new System.Drawing.Point(19, 98);
             this.searchResult.Name = "searchResult";
-            this.searchResult.Size = new System.Drawing.Size(180, 300);
+            this.searchResult.Size = new System.Drawing.Size(265, 300);
             this.searchResult.TabIndex = 4;
             this.searchResult.UseCompatibleStateImageBehavior = false;
             this.searchResult.View = System.Windows.Forms.View.Details;
