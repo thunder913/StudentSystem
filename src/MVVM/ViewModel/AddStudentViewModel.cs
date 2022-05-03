@@ -3,8 +3,10 @@ using StudentSystemCommon.Core;
 using StudentSystemCommon.DAL;
 using StudentSystemCommon.MVVM.Model;
 using StudentSystemCommon.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StudentSystem.MVVM.ViewModel
@@ -110,24 +112,31 @@ namespace StudentSystem.MVVM.ViewModel
 
         public void AddStudent()
         {
-
-            _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+            try
             {
-                Specialty = SuggestionEntry.Specialty,
-                Stream = SuggestionEntry.Stream,
-                Course = SuggestionEntry.Course,
-                Email = SuggestionEntry.Email,
-                Faculty = SuggestionEntry.Faculty,
-                FacultyNumber = SuggestionEntry.FacultyNumber,
-                FirstName = SuggestionEntry.FirstName,
-                Group = SuggestionEntry.Group,
-                LastName = SuggestionEntry.LastName,
-                MiddleName = SuggestionEntry.MiddleName,
-                PhoneNumber = SuggestionEntry.PhoneNumber
-            });
-            studentService.AddStudent(SuggestionEntry.Specialty, int.Parse(SuggestionEntry.Stream), int.Parse(SuggestionEntry.Course), int.Parse(SuggestionEntry.Group), SuggestionEntry.FacultyNumber, SuggestionEntry.FirstName, SuggestionEntry.LastName, SuggestionEntry.MiddleName, SuggestionEntry.PhoneNumber, SuggestionEntry.Email, SuggestionEntry.Faculty);
-            _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
-            //TODO make all the necessary checks whether the student is already in the database and all the data is correct
+                studentService.AddStudent(SuggestionEntry.Specialty, SuggestionEntry.Stream, SuggestionEntry.Course, SuggestionEntry.Group, SuggestionEntry.FacultyNumber, SuggestionEntry.FirstName, SuggestionEntry.LastName, SuggestionEntry.MiddleName, SuggestionEntry.PhoneNumber, SuggestionEntry.Email, SuggestionEntry.Faculty);
+                _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+                {
+                    Specialty = SuggestionEntry.Specialty,
+                    Stream = SuggestionEntry.Stream,
+                    Course = SuggestionEntry.Course,
+                    Email = SuggestionEntry.Email,
+                    Faculty = SuggestionEntry.Faculty,
+                    FacultyNumber = SuggestionEntry.FacultyNumber,
+                    FirstName = SuggestionEntry.FirstName,
+                    Group = SuggestionEntry.Group,
+                    LastName = SuggestionEntry.LastName,
+                    MiddleName = SuggestionEntry.MiddleName,
+                    PhoneNumber = SuggestionEntry.PhoneNumber
+                });
+                _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
+                MessageBox.Show("Успешно добави студент!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         public bool CanExecute()

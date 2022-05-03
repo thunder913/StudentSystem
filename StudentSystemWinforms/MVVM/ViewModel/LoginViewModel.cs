@@ -70,7 +70,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
             }
 
         }

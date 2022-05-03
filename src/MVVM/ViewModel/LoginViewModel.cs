@@ -7,6 +7,7 @@ using StudentSystemCommon.DAL;
 using StudentSystemCommon.MVVM.Model;
 using StudentSystem.MVVM.ViewModel.Command;
 using StudentSystemCommon.Utils;
+using System;
 
 namespace StudentSystem.MVVM.ViewModel
 {
@@ -90,14 +91,21 @@ namespace StudentSystem.MVVM.ViewModel
             }
             else
             {
-                MessageBox.Show("Невалидно потребителско име или парола!");
+                MessageBox.Show("Невалидно потребителско име или парола!", "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         public void Register(object parameter)
         {
-            _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
-            MessageBox.Show("Успешно се регистрирахте!");
+            try
+            {
+                _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
+                MessageBox.Show("Успешно се регистрирахте!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }            
         }
 
         public IViewModel CurrentViewModel
