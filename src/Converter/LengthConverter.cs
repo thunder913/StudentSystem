@@ -15,7 +15,7 @@ namespace StudentSystem.Converter
         {
             if (value is string text)
                 return text.Length >= (UserInfo.CurrentUser == null
-                    ? 3
+                    ? 1
                     : UserInfo.CurrentUser.Settings.InputLengthThreshold);
             return false;
         }
