@@ -27,7 +27,7 @@
                     Height="50"
                     Foreground="White"
                     FontSize="14"
-                    Command="{Binding HomeCommand}"/>
+                    Command="{Binding HomeCommand}" IsChecked="True"/>
 
             <RadioButton
                     Style="{StaticResource MenuButtonTheme}"
