@@ -1,7 +1,7 @@
-﻿using StudentSystem.Core;
-using StudentSystem.DAL;
+﻿using StudentSystemCommon.Core;
+using StudentSystemCommon.DAL;
 using StudentSystem.MVVM.ViewModel.Command;
-using StudentSystem.Utils;
+using StudentSystemCommon.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using StudentSystem.Utils;
+using StudentSystemCommon.Utils;
 
 namespace StudentSystem.Converter
 {

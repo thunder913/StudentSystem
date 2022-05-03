@@ -1,9 +1,9 @@
-﻿using StudentSystem.Core;
-using StudentSystem.DAL;
-using StudentSystem.MVVM.Model;
-using StudentSystem.MVVM.Model.DB;
+﻿using StudentSystemCommon.Core;
+using StudentSystemCommon.DAL;
+using StudentSystemCommon.MVVM.Model;
+using StudentSystemCommon.MVVM.Model.DB;
 using StudentSystem.MVVM.ViewModel.Command;
-using StudentSystem.Utils;
+using StudentSystemCommon.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

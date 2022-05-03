@@ -76,15 +76,6 @@
     <Compile Include="Converter\IsZeroConverter.cs" />
     <Compile Include="Converter\LengthConverter.cs" />
     <Compile Include="Converter\ObjectPathConverter.cs" />
-    <Compile Include="DAL\StudentContext.cs" />
-    <Compile Include="DAL\StudentService.cs" />
-    <Compile Include="DAL\UserService.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MVVM\Model\DB\Settings.cs" />
-    <Compile Include="MVVM\Model\DB\Student.cs" />
-    <Compile Include="MVVM\Model\StudentAddSuggestion.cs" />
-    <Compile Include="MVVM\Model\StudentSearchResult.cs" />
-    <Compile Include="MVVM\Model\StudentSearchSuggestion.cs" />
     <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\AddStudentCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
@@ -94,7 +85,6 @@
     <Compile Include="MVVM\ViewModel\IViewModelSuggestions.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\RegisterCommand.cs" />
-    <Compile Include="MVVM\Model\UserLoginSuggestion.cs" />
     <Compile Include="MVVM\ViewModel\Command\UpdateSettingsCommand.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SearchStudentViewModel.cs" />
@@ -113,9 +103,6 @@
     <Compile Include="MVVM\View\SearchStudentView.xaml.cs">
       <DependentUpon>SearchStudentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Cryptography.cs" />
-    <Compile Include="Utils\SuggestionFileManager.cs" />
-    <Compile Include="Utils\UserInfo.cs" />
     <Page Include="Controls\CustomComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,7 +119,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -171,10 +157,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\Model\DB\User.cs" />
     <Compile Include="MVVM\ViewModel\IViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\NavigationCommand.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -192,25 +176,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="addstudent.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="logindata.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="searchstudent.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\StudentSystemCommon\StudentSystemCommon.csproj">
+      <Project>{b1302290-f94b-46e6-9a7c-dcdb16d71b1e}</Project>
+      <Name>StudentSystemCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

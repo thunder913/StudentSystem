@@ -1,0 +1,17 @@
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.csproj.AssemblyReference.cache
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\StudentSystemCommon.dll.config
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\StudentSystemCommon.dll
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\StudentSystemCommon.pdb
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\EntityFramework.dll
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\EntityFramework.SqlServer.dll
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\EntityFramework.xml
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\EntityFramework.SqlServer.xml
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.csproj.CoreCompileInputs.cache
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.csproj.CopyComplete
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.dll
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.pdb
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\addstudent.dat
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\logindata.dat
+E:\Repository\StudentSystem\StudentSystemCommon\bin\Debug\searchstudent.dat
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.Migrations.Initial.resources
+E:\Repository\StudentSystem\StudentSystemCommon\obj\Debug\StudentSystemCommon.csproj.GenerateResource.cache

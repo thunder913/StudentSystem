@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using StudentSystem.MVVM.Model.DB;
 using Microsoft.Win32;
 
 namespace StudentSystem.Converter

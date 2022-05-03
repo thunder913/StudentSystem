@@ -1,6 +1,6 @@
-﻿using StudentSystem.Core;
+﻿using StudentSystemCommon.Core;
 using StudentSystem.MVVM.ViewModel.Command;
-using StudentSystem.Utils;
+using StudentSystemCommon.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
