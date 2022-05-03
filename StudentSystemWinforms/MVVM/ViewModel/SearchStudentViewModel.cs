@@ -194,6 +194,9 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             if (students.Count > 0)
             {
                 _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = SearchWord });
+                _suggestions = _suggestionFileManager.GetStudentSearchSuggestion();
+                AutoCompleteCollection.Clear();
+                AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
             }
         }
 
