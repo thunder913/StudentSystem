@@ -1,12 +1,6 @@
 ﻿using StudentSystemWinForms.Core;
 using StudentSystemCommon.DAL;
-using StudentSystemWinForms.Models;
 using StudentSystemCommon.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentSystemWinForms.MVVM.ViewModel
 {

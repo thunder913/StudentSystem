@@ -1,6 +1,5 @@
 ﻿using StudentSystemCommon.MVVM.Model.DB;
 using StudentSystemCommon.Utils;
-using System;
 using System.Data.Entity;
 using System.Linq;
 

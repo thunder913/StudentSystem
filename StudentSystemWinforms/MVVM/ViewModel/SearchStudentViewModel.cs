@@ -5,11 +5,8 @@ using StudentSystemCommon.MVVM.Model.DB;
 using StudentSystemCommon.Utils;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentSystemWinForms.MVVM.ViewModel

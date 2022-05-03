@@ -3,11 +3,8 @@ using StudentSystemCommon.Core;
 using StudentSystemCommon.DAL;
 using StudentSystemCommon.MVVM.Model;
 using StudentSystemCommon.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace StudentSystem.MVVM.ViewModel

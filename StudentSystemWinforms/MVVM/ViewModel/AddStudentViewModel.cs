@@ -1,14 +1,10 @@
-﻿using StudentSystemWinForms.Core;
-using StudentSystemCommon.DAL;
+﻿using StudentSystemCommon.DAL;
 using StudentSystemWinForms.Models;
 using StudentSystemCommon.MVVM.Model;
 using StudentSystemCommon.Utils;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentSystemWinForms.MVVM.ViewModel
