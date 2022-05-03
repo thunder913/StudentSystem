@@ -69,6 +69,21 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Faculty)));
             }
         }
+
+        public void SetSuggestion()
+        {
+            var suggestion = studentService.GetStudentSuggestion(SuggestedFacultyNumber);
+            if (suggestion == null)
+            {
+                MessageBox.Show("Няма студент с такъв факултетен номер!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                FillTextBoxData(suggestion);
+                AddSuggestionToList();
+            }
+        }
+
         public string Specialty
         {
             get => _specialty; set
@@ -156,23 +171,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             try
             {
                 studentService.AddStudent(Specialty, Stream, Course, Group, FacultyNumber, FirstName, LastName, MiddleName, PhoneNumber, Email, Faculty);
-                _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
-                {
-                    Specialty = Specialty,
-                    Faculty = Faculty,
-                    FacultyNumber = FacultyNumber,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    MiddleName = MiddleName,
-                    PhoneNumber = PhoneNumber,
-                    Email = Email,
-                    Group = Group,
-                    Stream = Stream,
-                    Course = Course
-                });
-                _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
-                AutoCompleteCollection.Clear();
-                AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+                AddSuggestionToList();
                 MessageBox.Show("Успешно добави студент!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (ArgumentException ex)
@@ -194,6 +193,27 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             Course = suggestion.Course;
             Group = suggestion.Group;
             Stream = suggestion.Stream;
+        }
+
+        private void AddSuggestionToList()
+        {
+            _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+            {
+                Specialty = Specialty,
+                Faculty = Faculty,
+                FacultyNumber = FacultyNumber,
+                FirstName = FirstName,
+                LastName = LastName,
+                MiddleName = MiddleName,
+                PhoneNumber = PhoneNumber,
+                Email = Email,
+                Group = Group,
+                Stream = Stream,
+                Course = Course
+            });
+            _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
+            AutoCompleteCollection.Clear();
+            AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
         }
     }
 }

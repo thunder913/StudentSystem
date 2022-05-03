@@ -35,7 +35,8 @@ namespace StudentSystemWinForms.MVVM.View
             phoneNumberBox.DataBindings.Add("Text", _model, nameof(_model.PhoneNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             emailBox.DataBindings.Add("Text", _model, nameof(_model.Email), false, DataSourceUpdateMode.OnPropertyChanged);
             addButton.Click += (sender, e) => _model.AddStudentClicked();
-            
+            setSuggestionButton.Click += (sender, e) => _model.SetSuggestion();
+
             suggestedFacultyNumberBox.DataBindings.Add("Text", _model, nameof(_model.SuggestedFacultyNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             suggestedFacultyNumberBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             suggestedFacultyNumberBox.AutoCompleteSource = AutoCompleteSource.CustomSource;

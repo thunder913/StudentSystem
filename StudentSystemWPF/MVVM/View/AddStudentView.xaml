@@ -115,16 +115,15 @@
             Grid.Row="0" Grid.Column="1" 
             VerticalAlignment="Center"/>
         <controls:SuggestTextBox
-            Grid.Row="0"
             Grid.Column="1"
-            HorizontalAlignment="Right"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Items="{Binding Suggestions}"
             ValueMember="{Binding SuggestedFacultyNumberKeyPair}"
             AutoSuggest="{Binding BestSuggestion.SuggestedFacultyNumber}"
             Placeholder="Скорошен"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-            Width="200"/>
+            Width="100" Margin="140,0,0,0"/>
         <Button 
             Style="{StaticResource ButtonStyle}" 
             Command="{Binding AddCommand}"
@@ -135,5 +134,13 @@
             Grid.Column="1"
             FontSize="20"
             Height="46" Width="150"/>
+        <Button 
+            Style="{StaticResource ButtonStyle}" 
+            Command="{Binding SetSuggestionCommand}"
+            Content="Въведи" 
+            HorizontalAlignment="Left" 
+            Grid.Column="1"
+            FontSize="16" Width="98" Margin="245,19,0,20"
+            Height="25"/>
     </Grid>
 </UserControl>

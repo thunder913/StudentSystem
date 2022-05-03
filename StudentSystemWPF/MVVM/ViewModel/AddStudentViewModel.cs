@@ -11,11 +11,42 @@ using System.Windows.Input;
 
 namespace StudentSystem.MVVM.ViewModel
 {
-    internal class AddStudentViewModel : ObservableObject, IViewModel
+    public class AddStudentViewModel : ObservableObject, IViewModel
     {
         private StudentService studentService { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand SetSuggestionCommand { get; set; }
         private IViewModel _currentViewModel;
+
+        public void SetStudentSuggestion()
+        {
+            var suggestion = studentService.GetStudentSuggestion(SuggestionEntry.SuggestedFacultyNumber);
+            if (suggestion == null)
+            {
+                MessageBox.Show("Няма студент с такъв факултетен номер!", "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                SuggestionEntry = suggestion;
+                _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+                {
+                    Specialty = SuggestionEntry.Specialty,
+                    Stream = SuggestionEntry.Stream,
+                    Course = SuggestionEntry.Course,
+                    Email = SuggestionEntry.Email,
+                    Faculty = SuggestionEntry.Faculty,
+                    FacultyNumber = SuggestionEntry.FacultyNumber,
+                    FirstName = SuggestionEntry.FirstName,
+                    Group = SuggestionEntry.Group,
+                    LastName = SuggestionEntry.LastName,
+                    MiddleName = SuggestionEntry.MiddleName,
+                    PhoneNumber = SuggestionEntry.PhoneNumber
+                });
+                _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
+            }
+        }
+        
+
         private IViewModel _currentViewModelParent;
         private List<StudentAddSuggestion> _suggestions;
         private List<StudentAddSuggestion> _allSuggestions;
@@ -107,6 +138,7 @@ namespace StudentSystem.MVVM.ViewModel
             CurrentViewModelParent = this;
             CurrentViewModel = null;
             AddCommand = new AddStudentCommand(this);
+            SetSuggestionCommand = new SetSuggestionCommand(this);
             studentService = new StudentService(new StudentContext());
         }
 

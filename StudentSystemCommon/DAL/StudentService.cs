@@ -1,4 +1,5 @@
-﻿using StudentSystemCommon.MVVM.Model.DB;
+﻿using StudentSystemCommon.MVVM.Model;
+using StudentSystemCommon.MVVM.Model.DB;
 using StudentSystemCommon.Utils;
 using System;
 using System.Collections.Generic;
@@ -105,6 +106,29 @@ namespace StudentSystemCommon.DAL
                 Group = int.Parse(group)
             });
             _studentContext.SaveChanges();
+        }
+
+        public StudentAddSuggestion GetStudentSuggestion(string facultyNumber)
+        {
+            return this._studentContext
+                .Students
+                .Where(s => s.FacultyNumber == facultyNumber)
+                .Select(x => new StudentAddSuggestion()
+                {
+                    Course = x.Course.ToString(),
+                    Specialty = x.Specialty,
+                    Email = x.Email,
+                    Stream = x.Stream.ToString(),
+                    Faculty = x.Faculty,
+                    FacultyNumber = x.FacultyNumber,
+                    FirstName = x.FirstName,
+                    Group = x.Group.ToString(),
+                    LastName = x.LastName,
+                    MiddleName = x.MiddleName,
+                    PhoneNumber = x.PhoneNumber,
+                    SuggestedFacultyNumber = x.FacultyNumber,
+                })
+                .FirstOrDefault();
         }
     }
 }

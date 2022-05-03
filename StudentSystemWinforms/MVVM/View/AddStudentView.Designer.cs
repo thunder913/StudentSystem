@@ -54,6 +54,7 @@
             this.courseBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.addButton = new System.Windows.Forms.Button();
+            this.setSuggestionButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +71,7 @@
             // 
             this.suggestedFacultyNumberBox.Location = new System.Drawing.Point(398, 57);
             this.suggestedFacultyNumberBox.Name = "suggestedFacultyNumberBox";
-            this.suggestedFacultyNumberBox.Size = new System.Drawing.Size(161, 20);
+            this.suggestedFacultyNumberBox.Size = new System.Drawing.Size(94, 20);
             this.suggestedFacultyNumberBox.TabIndex = 4;
             // 
             // label2
@@ -268,10 +269,21 @@
             this.addButton.Text = "Добави";
             this.addButton.UseVisualStyleBackColor = true;
             // 
+            // setSuggestionButton
+            // 
+            this.setSuggestionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setSuggestionButton.Location = new System.Drawing.Point(498, 57);
+            this.setSuggestionButton.Name = "setSuggestionButton";
+            this.setSuggestionButton.Size = new System.Drawing.Size(71, 21);
+            this.setSuggestionButton.TabIndex = 28;
+            this.setSuggestionButton.Text = "Въведи";
+            this.setSuggestionButton.UseVisualStyleBackColor = true;
+            // 
             // AddStudentView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.setSuggestionButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.emailBox);
             this.Controls.Add(this.label9);
@@ -333,5 +345,6 @@
         private System.Windows.Forms.TextBox courseBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button setSuggestionButton;
     }
 }
