@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace StudentSystemCommon.DAL
 {
@@ -36,21 +37,23 @@ namespace StudentSystemCommon.DAL
         }
         public void AddStudent(string specialty, string stream, string course, string group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)
         {
+            var nameRegex = new Regex(@"^[A-Za-zа-яА-Я]+");
+            var phoneNumberRegex = new Regex(@"^[0-9\+]+$");
             if (string.IsNullOrWhiteSpace(facultyNumber) || facultyNumber.Length < 5)
             {
                 throw new ArgumentException("Невалиден факултетен номер!");
             }
-            else if (string.IsNullOrWhiteSpace(firstName))
+            else if (string.IsNullOrWhiteSpace(firstName) || !nameRegex.IsMatch(firstName))
             {
-                throw new ArgumentException("Името не може да е празно!");
+                throw new ArgumentException("Името не може да е празно и трябва да съдържа само букви!");
             }
-            else if (string.IsNullOrWhiteSpace(middleName))
+            else if (string.IsNullOrWhiteSpace(middleName) || !nameRegex.IsMatch(middleName))
             {
-                throw new ArgumentException("Презимето не може да е празно!");
+                throw new ArgumentException("Презимето не може да е празно и трябва да съдържа само букви!");
             }
-            else if (string.IsNullOrWhiteSpace(lastName))
+            else if (string.IsNullOrWhiteSpace(lastName) || !nameRegex.IsMatch(lastName))
             {
-                throw new ArgumentException("Фамилията не може да е празна!");
+                throw new ArgumentException("Фамилията не може да е празна и трябва да съдържа само букви!");
             }
             else if (string.IsNullOrWhiteSpace(faculty))
             {
@@ -72,13 +75,19 @@ namespace StudentSystemCommon.DAL
             {
                 throw new ArgumentException("Потокът трябва да бъде число!");
             }
-            else if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length < 6)
+            else if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length < 6 || !phoneNumberRegex.IsMatch(phoneNumber))
             {
                 throw new ArgumentException("Трябва да се въведе валиден телефонен номер!");
             }
             else if (string.IsNullOrWhiteSpace(email) || !new EmailAddressAttribute().IsValid(email))
             {
                 throw new ArgumentException("Трябва да се въведе валиден имейл!");
+            }
+
+            var student = _studentContext.Students.FirstOrDefault(x => x.FacultyNumber == facultyNumber);
+            if (student != null)
+            {
+                throw new ArgumentException("Вече съществува студент с този факултетен номер!");
             }
             
             _studentContext.Students.Add(new Student
