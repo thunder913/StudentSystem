@@ -42,7 +42,7 @@ namespace StudentSystemCommon.Utils
                     MiddleName = x.MiddleName,
                     PhoneNumber = x.PhoneNumber,
                     SuggestedFacultyNumber = x.FacultyNumber,
-                }).ToList();
+                }).Reverse().ToList();
         }
 
         public List<StudentSearchSuggestion> GetStudentSearchSuggestion()

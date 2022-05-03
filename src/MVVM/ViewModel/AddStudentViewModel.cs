@@ -126,6 +126,7 @@ namespace StudentSystem.MVVM.ViewModel
                 PhoneNumber = SuggestionEntry.PhoneNumber
             });
             studentService.AddStudent(SuggestionEntry.Specialty, int.Parse(SuggestionEntry.Stream), int.Parse(SuggestionEntry.Course), int.Parse(SuggestionEntry.Group), SuggestionEntry.FacultyNumber, SuggestionEntry.FirstName, SuggestionEntry.LastName, SuggestionEntry.MiddleName, SuggestionEntry.PhoneNumber, SuggestionEntry.Email, SuggestionEntry.Faculty);
+            _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
             //TODO make all the necessary checks whether the student is already in the database and all the data is correct
         }
 

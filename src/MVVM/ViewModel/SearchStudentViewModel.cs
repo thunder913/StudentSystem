@@ -143,6 +143,7 @@ namespace StudentSystem.MVVM.ViewModel
             if (students.Count > 0)
             {
                 _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = facNumber });
+                _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
             }
         }
     }
