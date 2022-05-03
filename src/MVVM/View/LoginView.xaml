@@ -25,7 +25,7 @@
                        FontSize="22"
                        Foreground="Black"/>
         <Label Grid.Column="1" FontSize="30"  RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
-            Login
+            Входна страница
         </Label>
         <controls:SuggestTextBox 
             Items="{Binding Suggestions}"
@@ -43,15 +43,15 @@
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Bottom"/>
         <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Right">Password</Label>
-        <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0" Content="Login" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Top">
+        <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0" Content="Влез" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="25"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="or if you don't have an account" HorizontalAlignment="Center"/>
-        <Button Command="{Binding RegisterCommand}" Margin="0, 0, 0, 10" Content="Register" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Bottom">
+        <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Content="или ако имаш вече акаунт" HorizontalAlignment="Center"/>
+        <Button Command="{Binding RegisterCommand}" Margin="0, 0, 0, 10" Content="Регистрирай се" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Bottom">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="25"/>

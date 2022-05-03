@@ -100,7 +100,7 @@ namespace StudentSystem.MVVM.ViewModel
             try
             {
                 _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
-                MessageBox.Show("Успешно се регистрирахте!");
+                MessageBox.Show("Успешно се регистрирахте!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
