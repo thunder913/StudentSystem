@@ -56,14 +56,23 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
             else
             {
-                MessageBox.Show("Невалидно потребителско име или парола!");
+                MessageBox.Show("Невалидно потребителско име или парола!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         public void Register()
         {
-            _userService.Register(Username, Password);
-            MessageBox.Show("Успешно се регистрирахте!");
+            try
+            {
+                _userService.Register(Username, Password);
+                MessageBox.Show("Успешно се регистрирахте!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+
         }
 
 

@@ -39,8 +39,12 @@ namespace StudentSystemCommon.DAL
             {
                 _studentContext.Users.Add(new User(loginUsername, loginUsername, Cryptography.EncodePassword(password)));
                 _studentContext.SaveChanges();
+                UserInfo.CurrentUser = _studentContext.Users.FirstOrDefault(user => user.Username == loginUsername);
             }
-            UserInfo.CurrentUser = _studentContext.Users.FirstOrDefault(user => user.Username == loginUsername);
+            else
+            {
+                throw new System.Exception("Потребител с такова име вече съществува");
+            }
         }
     }
 }
