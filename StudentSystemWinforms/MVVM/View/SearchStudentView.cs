@@ -25,8 +25,8 @@ namespace StudentSystemWinForms.MVVM.View
         {
             searchBox.DataBindings.Add("Text", _model, nameof(_model.SearchWord), false, DataSourceUpdateMode.OnPropertyChanged);
 
-            searchResult.Columns.Add("Факултетен номер", 130,HorizontalAlignment.Left);
-            searchResult.Columns.Add("Име", 130, HorizontalAlignment.Right);
+            searchResult.Columns.Add("Факултетен номер", 120,HorizontalAlignment.Left);
+            searchResult.Columns.Add("Име", 120, HorizontalAlignment.Right);
             searchResult.ItemSelectionChanged += (sender, e) => _model.SelectedItemEvent(sender);
             facultyNumberBox.DataBindings.Add("Text", _model, nameof(_model.FacultyNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             nameBox.DataBindings.Add("Text", _model, nameof(_model.FirstName), false, DataSourceUpdateMode.OnPropertyChanged);

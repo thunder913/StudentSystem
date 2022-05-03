@@ -81,6 +81,7 @@
             // 
             // searchResult
             // 
+            this.searchResult.FullRowSelect = true;
             this.searchResult.HideSelection = false;
             this.searchResult.Location = new System.Drawing.Point(19, 98);
             this.searchResult.Name = "searchResult";
