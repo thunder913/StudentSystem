@@ -17,7 +17,13 @@ namespace StudentSystem.MVVM.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand SetSuggestionCommand { get; set; }
         private IViewModel _currentViewModel;
-
+        private IViewModel _currentViewModelParent;
+        private List<StudentAddSuggestion> _suggestions;
+        private List<StudentAddSuggestion> _allSuggestions;
+        private readonly SuggestionFileManager _suggestionFileManager;
+        private StudentAddSuggestion _bestSuggestion;
+        private StudentAddSuggestion _suggestionEntry;
+        private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
         public void SetStudentSuggestion()
         {
             var suggestion = studentService.GetStudentSuggestion(SuggestionEntry.SuggestedFacultyNumber);
@@ -45,15 +51,6 @@ namespace StudentSystem.MVVM.ViewModel
                 _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
             }
         }
-        
-
-        private IViewModel _currentViewModelParent;
-        private List<StudentAddSuggestion> _suggestions;
-        private List<StudentAddSuggestion> _allSuggestions;
-        private readonly SuggestionFileManager _suggestionFileManager;
-        private StudentAddSuggestion _bestSuggestion;
-        private StudentAddSuggestion _suggestionEntry;
-        private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
         public StudentAddSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
