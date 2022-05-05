@@ -168,7 +168,7 @@ namespace StudentSystem.MVVM.ViewModel
                 }
                 var first = _suggestions.First();
                 var inputLengthThreshold =
-                    UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
+                    UserInfo.CurrentUser == null ? 1 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
                 BestSuggestionUsername = SuggestionEntry?.Username?.Length >= inputLengthThreshold ? first.Username : string.Empty;
                 BestSuggestionPassword = SuggestionEntry?.Password?.Length >= inputLengthThreshold ? first.Password : string.Empty;
             }

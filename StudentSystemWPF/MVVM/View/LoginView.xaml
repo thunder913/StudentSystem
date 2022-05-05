@@ -34,7 +34,7 @@
             Placeholder="Потребителско име"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Top"/>
-        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Right">Username</Label>
+        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Right">Потребителско име</Label>
         <controls:SuggestTextBox 
             Items="{Binding Suggestions}"
             ValueMember="{Binding PassKeyPair}"
@@ -42,7 +42,7 @@
             Placeholder="Парола"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Bottom"/>
-        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Right">Password</Label>
+        <Label Grid.Row="1" Grid.Column="0" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Right">Парола</Label>
         <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0" Content="Влез" Grid.Row="2" Grid.Column="1" Height="50" Width="120" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
