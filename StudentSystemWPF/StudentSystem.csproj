@@ -68,14 +68,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\SuggestTextBox.xaml.cs">
-      <DependentUpon>SuggestTextBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converter\ClearConverter.cs" />
-    <Compile Include="Converter\ConverterBindableParameter.cs" />
-    <Compile Include="Converter\IsZeroConverter.cs" />
-    <Compile Include="Converter\LengthConverter.cs" />
-    <Compile Include="Converter\ObjectPathConverter.cs" />
     <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Command\AddStudentCommand.cs" />
     <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
@@ -104,14 +96,6 @@
     <Compile Include="MVVM\View\SearchStudentView.xaml.cs">
       <DependentUpon>SearchStudentView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\CustomComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SuggestTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,18 +128,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Theme\ButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\MenuButtonTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\TextBoxTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVM\ViewModel\IViewModel.cs" />
@@ -177,10 +149,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="addstudent.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="logindata.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="searchstudent.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

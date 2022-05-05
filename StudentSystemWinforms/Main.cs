@@ -50,10 +50,5 @@ namespace StudentSystemWinForms
         {
             SwapView(new LoginView());
         }
-
-        private void btnLoadOtherView_Click(object sender, EventArgs e)
-        {
-            SwapView(new OtherView());
-        }
     }
 }

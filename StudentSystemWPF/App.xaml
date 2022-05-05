@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:StudentSystem"
              xmlns:viewModel="clr-namespace:StudentSystem.MVVM.ViewModel"
              xmlns:view="clr-namespace:StudentSystem.MVVM.View"
-             xmlns:converter="clr-namespace:StudentSystem.Converter"
+             xmlns:converter="clr-namespace:StudentSystemCommon.Converter;assembly=StudentSystemCommon"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -27,10 +27,10 @@
                 <view:SearchStudentView/>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
-                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
-                <ResourceDictionary Source="Theme/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="/StudentSystemCommon;component/Theme/TextBoxTheme.xaml"/>
+                <ResourceDictionary Source="/StudentSystemCommon;component/Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="/StudentSystemCommon;component/Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="/StudentSystemCommon;component/Theme/ButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

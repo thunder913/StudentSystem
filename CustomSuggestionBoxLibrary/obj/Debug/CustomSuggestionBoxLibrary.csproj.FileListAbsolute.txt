@@ -1,0 +1,4 @@
+E:\Repository\StudentSystem\CustomSuggestionBoxLibrary\obj\Debug\CustomSuggestionBoxLibrary.csproj.AssemblyReference.cache
+E:\Repository\StudentSystem\CustomSuggestionBoxLibrary\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\Repository\StudentSystem\CustomSuggestionBoxLibrary\obj\Debug\CustomSuggestionBoxLibrary_MarkupCompile.cache
+E:\Repository\StudentSystem\CustomSuggestionBoxLibrary\obj\Debug\CustomSuggestionBoxLibrary_MarkupCompile.lref

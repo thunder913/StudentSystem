@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentSystem.MVVM.View" 
-        xmlns:controls="clr-namespace:StudentSystem.Controls" 
+        xmlns:controls="clr-namespace:StudentSystemCommon.Controls;assembly=StudentSystemCommon"
         xmlns:viewModel="clr-namespace:StudentSystem.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="450" Width="800">

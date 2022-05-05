@@ -1,8 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace StudentSystem.Controls
+namespace StudentSystemCommon.Controls
 {
     /// <summary>
     /// Interaction logic for SuggestTextBox.xaml
@@ -10,11 +21,11 @@ namespace StudentSystem.Controls
     public partial class SuggestTextBox : UserControl
     {
         public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register("Items",
-                typeof(IEnumerable<object>),
-                typeof(SuggestTextBox),
-                new PropertyMetadata(null));
-        
+    DependencyProperty.Register("Items",
+        typeof(IEnumerable<object>),
+        typeof(SuggestTextBox),
+        new PropertyMetadata(null));
+
         public static readonly DependencyProperty ValueMemberProperty =
             DependencyProperty.Register("ValueMember",
                 typeof(KeyValuePair<object, string>),
@@ -83,7 +94,6 @@ namespace StudentSystem.Controls
             get => GetValue(PlaceholderProperty);
             set => SetValue(PlaceholderProperty, value);
         }
-
         public SuggestTextBox()
         {
             InitializeComponent();
