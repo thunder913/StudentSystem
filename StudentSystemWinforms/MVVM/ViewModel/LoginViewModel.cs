@@ -21,7 +21,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private UserLoginSuggestion _suggestionEntry;
         private string _bestSuggestionUsername;
         private string _bestSuggestionPassword;
-        private string _placeholder;
         public UserLoginSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
@@ -37,16 +36,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 }
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestionEntry)));
-            }
-        }
-
-        public string Placeholder
-        {
-            get => _placeholder;
-            set
-            {
-                _placeholder = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Placeholder)));
             }
         }
         public List<UserLoginSuggestion> Suggestions
@@ -119,7 +108,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             PassKeyPair =
                 new KeyValuePair<object, string>(_suggestionEntry, "Password");
             _userService = new UserService(new StudentContext());
-            Placeholder = "GOSHO!";
         }
 
         public void Login(Action redirect)

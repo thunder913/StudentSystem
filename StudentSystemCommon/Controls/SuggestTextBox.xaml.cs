@@ -21,9 +21,6 @@ namespace StudentSystemCommon.Controls
     public partial class SuggestTextBox : UserControl
     {
 
-        public ComboBox comboBox;
-        public TextBox autoSuggestBox;
-
         public static readonly DependencyProperty ItemsProperty =
     DependencyProperty.Register("Items",
         typeof(IEnumerable<object>),
@@ -101,8 +98,6 @@ namespace StudentSystemCommon.Controls
         public SuggestTextBox()
         {
             InitializeComponent();
-            comboBox = ComboBox;
-            autoSuggestBox = SearchBar;
         }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Converter\LengthConverter.cs" />
     <Compile Include="Converter\ObjectPathConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Helpers\SuggestionBoxBinderHelper.cs" />
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>

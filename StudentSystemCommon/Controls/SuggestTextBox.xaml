@@ -42,6 +42,7 @@
                 Background="Transparent"
                 VerticalAlignment="Stretch"
                 Padding="0"
+                FontSize="12"
                 Foreground="#41b3a3"
                 x:Name="SearchBar" VerticalContentAlignment="Center">
                 <TextBox.InputBindings>

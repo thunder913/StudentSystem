@@ -4,6 +4,8 @@ using System.Windows.Data;
 using StudentSystemCommon.Controls;
 using StudentSystemWinForms.MVVM.View;
 using StudentSystemWinForms.MVVM.ViewModel;
+using StudentSystemWinForms.Utils;
+
 namespace StudentSystemWinForms.Views
 {
     public sealed partial class LoginView : ViewBase
@@ -25,76 +27,19 @@ namespace StudentSystemWinForms.Views
         }
         public sealed override void PerformBinding()
         {
-            
+
             loginButton.Click += (sender, e) => _model.Login(() => (this.Parent as Main).SwapView(new MainView()));
             registerButton.Click += (sender, e) => _model.Register();
 
             var username = (usernameSuggestionBox.Child as SuggestTextBox);
             var password = (passwordSuggestionBox.Child as SuggestTextBox);
 
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(username, _model, "Потребителско име", nameof(_model.BestSuggestionUsername),
+                nameof(_model.SuggestionEntry), nameof(_model.UserKeyPair), nameof(_model.Suggestions));
 
-            username.DataContext = _model;
-            //username.comboBox.bindin.DataBindings.Add("Items", _model.Suggestions, nameof(_model.Suggestions), false, DataSourceUpdateMode.OnPropertyChanged);
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(password, _model, "Парола", nameof(_model.BestSuggestionPassword),
+                nameof(_model.SuggestionEntry), nameof(_model.PassKeyPair), nameof(_model.Suggestions));
 
-            username.Placeholder = "Потребителско име";
-
-            username.SetBinding(SuggestTextBox.AutoSuggestProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.BestSuggestionUsername))
-            });
-
-            username.SetBinding(SuggestTextBox.TextProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.SuggestionEntry))
-            });
-
-            username.SetBinding(SuggestTextBox.ValueMemberProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.UserKeyPair))
-            });
-
-            username.SetBinding(SuggestTextBox.ItemsProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.Suggestions))
-            });
-
-            password.Placeholder = "Парола";
-
-            password.SetBinding(SuggestTextBox.AutoSuggestProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.BestSuggestionPassword))
-            });
-
-            password.SetBinding(SuggestTextBox.TextProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.SuggestionEntry))
-            });
-            
-            password.SetBinding(SuggestTextBox.ValueMemberProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.PassKeyPair))
-            });
-
-            password.SetBinding(SuggestTextBox.ItemsProperty, new Binding()
-            {
-                Mode = BindingMode.TwoWay,
-                Source = _model,
-                Path = new PropertyPath(nameof(_model.Suggestions))
-            });
         }
     }
 }
