@@ -109,7 +109,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
         }
 
-        internal void HandleKeyPressed(object sender, KeyEventArgs e)
+        public void HandleKeyPressed(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
             {

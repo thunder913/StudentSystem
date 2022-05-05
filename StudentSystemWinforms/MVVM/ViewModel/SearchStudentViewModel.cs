@@ -160,7 +160,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 SearchWord = DefaultSearchTerm;
         }
 
-        internal void SelectedItemEvent(object sender)
+        public void SelectedItemEvent(object sender)
         {
             if (listView.SelectedItems.Count > 0)
             {

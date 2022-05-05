@@ -47,7 +47,6 @@ namespace StudentSystemWinForms.MVVM.View
             searchBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             searchBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             searchBox.AutoCompleteCustomSource = _model.AutoCompleteCollection;
-
             searchBox.KeyDown += (sender, e) => _model.HandleKeyPressed(sender, e);
         }
     }
