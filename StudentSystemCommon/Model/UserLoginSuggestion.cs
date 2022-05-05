@@ -37,6 +37,7 @@ namespace StudentSystemCommon.MVVM.Model
         {
             if (obj is UserLoginSuggestion other)
             {
+                return true;
                 return Username == other.Username && Password == other.Password;
             }
 

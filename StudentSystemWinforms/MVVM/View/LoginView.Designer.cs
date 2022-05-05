@@ -34,22 +34,17 @@ namespace StudentSystemWinForms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.usernameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.passwordBox = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
             this.registerButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.passwordSuggestionBox = new System.Windows.Forms.Integration.ElementHost();
+            this.suggestTextBox2 = new StudentSystemCommon.Controls.SuggestTextBox();
+            this.usernameSuggestionBox = new System.Windows.Forms.Integration.ElementHost();
+            this.suggestTextBox1 = new StudentSystemCommon.Controls.SuggestTextBox();
             this.SuspendLayout();
-            // 
-            // usernameBox
-            // 
-            this.usernameBox.Location = new System.Drawing.Point(357, 74);
-            this.usernameBox.Name = "usernameBox";
-            this.usernameBox.Size = new System.Drawing.Size(186, 20);
-            this.usernameBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -79,13 +74,6 @@ namespace StudentSystemWinForms.Views
             this.label3.TabIndex = 4;
             this.label3.Text = "Парола";
             // 
-            // passwordBox
-            // 
-            this.passwordBox.Location = new System.Drawing.Point(357, 115);
-            this.passwordBox.Name = "passwordBox";
-            this.passwordBox.Size = new System.Drawing.Size(186, 20);
-            this.passwordBox.TabIndex = 3;
-            // 
             // loginButton
             // 
             this.loginButton.Location = new System.Drawing.Point(378, 166);
@@ -113,18 +101,36 @@ namespace StudentSystemWinForms.Views
             this.label4.TabIndex = 7;
             this.label4.Text = "ако нямаш акаунт";
             // 
+            // passwordSuggestionBox
+            // 
+            this.passwordSuggestionBox.Location = new System.Drawing.Point(357, 105);
+            this.passwordSuggestionBox.Name = "passwordSuggestionBox";
+            this.passwordSuggestionBox.Size = new System.Drawing.Size(159, 26);
+            this.passwordSuggestionBox.TabIndex = 9;
+            this.passwordSuggestionBox.Text = "elementHost1";
+            this.passwordSuggestionBox.Child = this.suggestTextBox2;
+            // 
+            // usernameSuggestionBox
+            // 
+            this.usernameSuggestionBox.Location = new System.Drawing.Point(357, 77);
+            this.usernameSuggestionBox.Name = "usernameSuggestionBox";
+            this.usernameSuggestionBox.Size = new System.Drawing.Size(159, 22);
+            this.usernameSuggestionBox.TabIndex = 8;
+            this.usernameSuggestionBox.Text = "elementHost1";
+            this.usernameSuggestionBox.Child = this.suggestTextBox1;
+            // 
             // LoginView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.passwordSuggestionBox);
+            this.Controls.Add(this.usernameSuggestionBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.registerButton);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.passwordBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.usernameBox);
             this.Name = "LoginView";
             this.Size = new System.Drawing.Size(736, 471);
             this.ResumeLayout(false);
@@ -132,16 +138,17 @@ namespace StudentSystemWinForms.Views
 
         }
         #endregion
-
-        private System.Windows.Forms.TextBox usernameBox;
         private System.Windows.Forms.Label label1;
         #endregion
 
         private Label label2;
         private Label label3;
-        private TextBox passwordBox;
         private Button loginButton;
         private Button registerButton;
         private Label label4;
+        private System.Windows.Forms.Integration.ElementHost usernameSuggestionBox;
+        private StudentSystemCommon.Controls.SuggestTextBox suggestTextBox1;
+        private System.Windows.Forms.Integration.ElementHost passwordSuggestionBox;
+        private StudentSystemCommon.Controls.SuggestTextBox suggestTextBox2;
     }
 }

@@ -12,46 +12,121 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public sealed class LoginViewModel : ViewModelBase
     {
-        private string _username;
-        private string _password;
         private UserService _userService;
-        private List<UserLoginSuggestion> loginSuggestions { get; set; } = new List<UserLoginSuggestion>();
-        private SuggestionFileManager _suggestionFileManager;
-        public AutoCompleteStringCollection AutoCompleteCollection { get; set; }
-        public string Username
+        private List<UserLoginSuggestion> _suggestions = new List<UserLoginSuggestion>();
+        private List<UserLoginSuggestion> _allSuggestions;
+        private readonly SuggestionFileManager _suggestionFileManager;
+        private KeyValuePair<object, string> _userKeyPair;
+        private KeyValuePair<object, string> _passKeyPair;
+        private UserLoginSuggestion _suggestionEntry;
+        private string _bestSuggestionUsername;
+        private string _bestSuggestionPassword;
+        private string _placeholder;
+        public UserLoginSuggestion SuggestionEntry
         {
-            get => _username;
+            get => _suggestionEntry;
             set
             {
-                _username = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Username)));
-            }
+                _suggestionEntry = value;
+                if (_suggestionEntry != null)
+                {
+                    if (_suggestionEntry.Username != null)
+                        Suggestions = _allSuggestions.Where(s => s.Username.ToLower().Contains(_suggestionEntry.Username.ToLower())).ToList();
+                    if (_suggestionEntry.Password != null)
+                        Suggestions = _allSuggestions.Where(s => s.Password.ToLower().Contains(_suggestionEntry.Password.ToLower())).ToList();
+                }
 
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestionEntry)));
+            }
         }
 
-        public string Password
+        public string Placeholder
         {
-            get => _password;
+            get => _placeholder;
             set
             {
-                _password = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Password)));
+                _placeholder = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Placeholder)));
             }
         }
+        public List<UserLoginSuggestion> Suggestions
+        {
+            get => _suggestions;
+            set
+            {
+                _suggestions = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Suggestions)));
+                if (!_suggestions.Any())
+                {
+                    BestSuggestionUsername = null;
+                    BestSuggestionPassword = null;
+                    return;
+                }
+                var first = _suggestions.First();
+                var inputLengthThreshold =
+                    UserInfo.CurrentUser == null ? 1 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
+                BestSuggestionUsername = SuggestionEntry?.Username?.Length >= inputLengthThreshold ? first.Username : string.Empty;
+                BestSuggestionPassword = SuggestionEntry?.Password?.Length >= inputLengthThreshold ? first.Password : string.Empty;
+            }
+        }
+
+        public string BestSuggestionPassword
+        {
+            get => _bestSuggestionPassword;
+            set
+            {
+                _bestSuggestionPassword = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(BestSuggestionPassword)));
+            }
+        }
+
+        public string BestSuggestionUsername
+        {
+            get => _bestSuggestionUsername;
+            set
+            {
+                _bestSuggestionUsername = value;
+                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(BestSuggestionUsername)));
+            }
+        }
+
+        public KeyValuePair<object, string> UserKeyPair
+        {
+            get => _userKeyPair;
+            set
+            {
+                _userKeyPair = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(UserKeyPair)));
+            }
+        }
+        public KeyValuePair<object, string> PassKeyPair
+        {
+            get => _passKeyPair;
+            set
+            {
+                _passKeyPair = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(PassKeyPair)));
+            }
+        }
+
         public LoginViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
-            AutoCompleteCollection = new AutoCompleteStringCollection();
-            loginSuggestions = _suggestionFileManager.GetLoginSuggestions();
-            AutoCompleteCollection.AddRange(loginSuggestions.Select(x => x.Username).ToArray());
+            _allSuggestions = _suggestionFileManager.GetLoginSuggestions();
+            SuggestionEntry = new UserLoginSuggestion();
+            UserKeyPair =
+                new KeyValuePair<object, string>(_suggestionEntry, "Username");
+            PassKeyPair =
+                new KeyValuePair<object, string>(_suggestionEntry, "Password");
             _userService = new UserService(new StudentContext());
+            Placeholder = "GOSHO!";
         }
 
         public void Login(Action redirect)
         {
-            if (_userService.Login(Username, Password))
+            if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
             {
-                _suggestionFileManager.AddLoginSuggestion(new UserLoginSuggestion(Username, Password));
+                _suggestionFileManager.AddLoginSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
                 redirect.Invoke();
             }
             else
@@ -64,7 +139,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         {
             try
             {
-                _userService.Register(Username, Password);
+                _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
                 MessageBox.Show("Успешно се регистрирахте!");
             }
             catch (Exception ex)
@@ -72,18 +147,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 MessageBox.Show(ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-        }
-
-
-        internal void HandleKeyPressed(object sender, KeyEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (AutoCompleteCollection.Contains(textBox.Text))
-            {
-                var suggestion = loginSuggestions.FirstOrDefault(x => x.Username == textBox.Text);
-                Username = textBox.Text;
-                Password = suggestion.Password;
-            }
         }
     }
 }

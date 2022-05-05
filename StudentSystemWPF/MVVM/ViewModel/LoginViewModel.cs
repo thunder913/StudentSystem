@@ -16,8 +16,6 @@ namespace StudentSystem.MVVM.ViewModel
         private UserService _userService;
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
-        private bool _hasError;
-        private string _errorMessage;
         private List<UserLoginSuggestion> _suggestions;
         private List<UserLoginSuggestion> _allSuggestions;
         private readonly SuggestionFileManager _suggestionFileManager;
@@ -45,17 +43,6 @@ namespace StudentSystem.MVVM.ViewModel
             set
             {
                 _passKeyPair = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
                 OnPropertyChanged();
             }
         }
