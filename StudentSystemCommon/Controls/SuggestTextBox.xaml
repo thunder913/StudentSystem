@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border CornerRadius="10"
+    <Border 
             Background="#f1f1f1">
         <Grid>
             <ComboBox Style="{StaticResource CustomComboBox}"
@@ -35,7 +35,7 @@
                 VerticalContentAlignment="Center"
                 x:Name="ComboBox">
             </ComboBox>
-            <Rectangle StrokeThickness="1"/>
+            <Rectangle StrokeThickness="1" Visibility="Hidden"/>
             <TextBox
                 Margin="1"
                 BorderThickness="0" 

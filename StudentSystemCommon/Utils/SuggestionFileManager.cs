@@ -26,6 +26,7 @@ namespace StudentSystemCommon.Utils
                 }
             }
 
+            // FIX ORDERING
             return studentService
                 .GetStudentsByFacNumber(facultyNumbers)
                 .Select(x => new StudentAddSuggestion()
@@ -42,7 +43,7 @@ namespace StudentSystemCommon.Utils
                     MiddleName = x.MiddleName,
                     PhoneNumber = x.PhoneNumber,
                     SuggestedFacultyNumber = x.FacultyNumber,
-                }).Reverse().ToList();
+                }).ToList();
         }
 
         public List<StudentSearchSuggestion> GetStudentSearchSuggestion()
@@ -85,9 +86,9 @@ namespace StudentSystemCommon.Utils
         public void SetAddStudentSuggetions(List<StudentAddSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
-            if (suggestions.Count >= 5)
+            if (suggestions.Count >= (UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5))
             {
-                suggestions = suggestions.Take(5).ToList();
+                suggestions = suggestions.Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5).ToList();
             }
             foreach (var suggestion in suggestions)
             {
@@ -114,9 +115,9 @@ namespace StudentSystemCommon.Utils
         public void SetLoginSuggestions(List<UserLoginSuggestion> suggestions)
         {
             StringBuilder sb = new StringBuilder();
-            if (suggestions.Count >= 5)
+            if (suggestions.Count >= (UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5))
             {
-                suggestions = suggestions.Take(5).ToList();
+                suggestions = suggestions.Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5).ToList();
             }
             foreach (var suggestion in suggestions)
             {

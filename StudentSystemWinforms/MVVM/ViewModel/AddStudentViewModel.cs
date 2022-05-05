@@ -13,11 +13,14 @@ namespace StudentSystemWinForms.MVVM.ViewModel
     public class AddStudentViewModel : ViewModelBase
     {
         private StudentService studentService;
-        private string _suggestedFacultyNumber;
-        private List<StudentAddSuggestion> _suggestions;
         private SuggestionFileManager _suggestionFileManager;
-        public AutoCompleteStringCollection AutoCompleteCollection { get; set; }
-
+        private List<StudentAddSuggestion> _suggestions;
+        private List<StudentAddSuggestion> _allSuggestions;
+        private StudentAddSuggestion _bestSuggestion;
+        private StudentAddSuggestion _suggestionEntry;
+        private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
+        private string _bestSuggestionFacultyNumber;
+        
         private string _facultyNumber;
         private string _firstName;
         private string _middleName;
@@ -29,6 +32,75 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private string _group;
         private string _course;
         private string _stream;
+        public StudentAddSuggestion SuggestionEntry
+        {
+            get => _suggestionEntry;
+            set
+            {
+                _suggestionEntry = value;
+                if (_suggestionEntry != null)
+                {
+                    if (_suggestionEntry.SuggestedFacultyNumber != null)
+                        Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.SuggestedFacultyNumber)).ToList();
+                    if (_suggestionEntry.FacultyNumber != null)
+                    {
+                        FillTextBoxData(_suggestionEntry);
+                        AddSuggestionToList();
+                    }
+                }
+
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestionEntry)));
+            }
+        }
+        public List<StudentAddSuggestion> Suggestions
+        {
+            get => _suggestions;
+            set
+            {
+                _suggestions = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Suggestions)));
+                if (!_suggestions.Any())
+                {
+                    BestSuggestion = null;
+                    return;
+                }
+                var first = _suggestions.First();
+                var inputLengthThreshold =
+                    UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
+                BestSuggestion = new StudentAddSuggestion();
+                BestSuggestion.SuggestedFacultyNumber = SuggestionEntry.SuggestedFacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
+            }
+        }
+        public StudentAddSuggestion BestSuggestion
+        {
+            get => _bestSuggestion;
+            set
+            {
+                _bestSuggestion = value;
+                BestSuggestionFacultyNumber = _bestSuggestion?.FacultyNumber;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(BestSuggestion)));
+            }
+        }
+        
+        public string BestSuggestionFacultyNumber
+        {
+            get => _bestSuggestionFacultyNumber;
+            set
+            {
+                _bestSuggestionFacultyNumber = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(BestSuggestionFacultyNumber)));
+            }
+        }
+        
+        public KeyValuePair<object, string> SuggestedFacultyNumberKeyPair
+        {
+            get => _suggestedFacultyNumberKeyPair;
+            set
+            {
+                _suggestedFacultyNumberKeyPair = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestedFacultyNumberKeyPair)));
+            }
+        }
         public string FacultyNumber
         {
             get => _facultyNumber; set
@@ -72,7 +144,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 
         public void SetSuggestion()
         {
-            var suggestion = studentService.GetStudentSuggestion(SuggestedFacultyNumber);
+            var suggestion = studentService.GetStudentSuggestion(SuggestionEntry.SuggestedFacultyNumber);
             if (suggestion == null)
             {
                 MessageBox.Show("Няма студент с такъв факултетен номер!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -83,7 +155,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 AddSuggestionToList();
             }
         }
-
+        
         public string Specialty
         {
             get => _specialty; set
@@ -108,21 +180,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Group)));
             }
         }
-
-        public void HandleKeyPressed(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                var textBox = sender as TextBox;
-                SuggestedFacultyNumber = textBox.Text;
-                if (AutoCompleteCollection.Contains(textBox.Text))
-                {
-                    var suggestion = _suggestions.FirstOrDefault(x => x.FacultyNumber == textBox.Text);
-                    FillTextBoxData(suggestion);
-                }
-            }
-        }
-
         public string Stream
         {
             get => _stream; set
@@ -147,23 +204,14 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Email)));
             }
         }
-        public string SuggestedFacultyNumber
-        {
-            get { return _suggestedFacultyNumber; }
-            set
-            {
-                _suggestedFacultyNumber = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestedFacultyNumber)));
-            }
-        }
-
         public AddStudentViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
-            _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
-            AutoCompleteCollection = new AutoCompleteStringCollection();
-            AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+            _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
             studentService = new StudentService(new StudentContext());
+            SuggestionEntry = new StudentAddSuggestion();
+            Suggestions ??= new List<StudentAddSuggestion>();
+            SuggestedFacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "SuggestedFacultyNumber");
         }
 
         public void AddStudentClicked()
@@ -194,7 +242,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             Group = suggestion.Group;
             Stream = suggestion.Stream;
         }
-
+        
         private void AddSuggestionToList()
         {
             _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
@@ -211,9 +259,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 Stream = Stream,
                 Course = Course
             });
-            _suggestions = _suggestionFileManager.GetStudentAddSuggestions();
-            AutoCompleteCollection.Clear();
-            AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+            _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
         }
     }
 }

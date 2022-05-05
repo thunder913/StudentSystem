@@ -13,6 +13,7 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class AddStudentViewModel : ObservableObject, IViewModel
     {
+        private readonly SuggestionFileManager _suggestionFileManager;
         private StudentService studentService { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand SetSuggestionCommand { get; set; }
@@ -20,7 +21,6 @@ namespace StudentSystem.MVVM.ViewModel
         private IViewModel _currentViewModelParent;
         private List<StudentAddSuggestion> _suggestions;
         private List<StudentAddSuggestion> _allSuggestions;
-        private readonly SuggestionFileManager _suggestionFileManager;
         private StudentAddSuggestion _bestSuggestion;
         private StudentAddSuggestion _suggestionEntry;
         private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
@@ -61,7 +61,11 @@ namespace StudentSystem.MVVM.ViewModel
                 {
                     if (_suggestionEntry.SuggestedFacultyNumber != null)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.SuggestedFacultyNumber)).ToList();
+                    if(_suggestionEntry.FacultyNumber != null)
+                        AddSuggestion();
                 }
+
+                
 
                 OnPropertyChanged();
             }
@@ -144,21 +148,7 @@ namespace StudentSystem.MVVM.ViewModel
             try
             {
                 studentService.AddStudent(SuggestionEntry.Specialty, SuggestionEntry.Stream, SuggestionEntry.Course, SuggestionEntry.Group, SuggestionEntry.FacultyNumber, SuggestionEntry.FirstName, SuggestionEntry.LastName, SuggestionEntry.MiddleName, SuggestionEntry.PhoneNumber, SuggestionEntry.Email, SuggestionEntry.Faculty);
-                _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
-                {
-                    Specialty = SuggestionEntry.Specialty,
-                    Stream = SuggestionEntry.Stream,
-                    Course = SuggestionEntry.Course,
-                    Email = SuggestionEntry.Email,
-                    Faculty = SuggestionEntry.Faculty,
-                    FacultyNumber = SuggestionEntry.FacultyNumber,
-                    FirstName = SuggestionEntry.FirstName,
-                    Group = SuggestionEntry.Group,
-                    LastName = SuggestionEntry.LastName,
-                    MiddleName = SuggestionEntry.MiddleName,
-                    PhoneNumber = SuggestionEntry.PhoneNumber
-                });
-                _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
+                AddSuggestion();
                 MessageBox.Show("Успешно добави студент!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (ArgumentException ex)
@@ -168,6 +158,24 @@ namespace StudentSystem.MVVM.ViewModel
 
         }
 
+        private void AddSuggestion()
+        {
+            _suggestionFileManager.AddStudentAddSuggestion(new StudentAddSuggestion()
+            {
+                Specialty = SuggestionEntry.Specialty,
+                Stream = SuggestionEntry.Stream,
+                Course = SuggestionEntry.Course,
+                Email = SuggestionEntry.Email,
+                Faculty = SuggestionEntry.Faculty,
+                FacultyNumber = SuggestionEntry.FacultyNumber,
+                FirstName = SuggestionEntry.FirstName,
+                Group = SuggestionEntry.Group,
+                LastName = SuggestionEntry.LastName,
+                MiddleName = SuggestionEntry.MiddleName,
+                PhoneNumber = SuggestionEntry.PhoneNumber
+            });
+            _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
+        }
         public bool CanExecute()
         {
             return SuggestionEntry != null

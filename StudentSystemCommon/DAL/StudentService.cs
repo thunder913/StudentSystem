@@ -27,6 +27,8 @@ namespace StudentSystemCommon.DAL
             return _studentContext.Students
                 .Where(s => facultyNumbers.Contains(s.FacultyNumber))
                 .Take(UserInfo.CurrentUser.Settings.SuggestionsCount > 0 ? UserInfo.CurrentUser.Settings.SuggestionsCount : 5)
+                .ToList()
+                .OrderBy(x => facultyNumbers.IndexOf(x.FacultyNumber))
                 .ToList();
         }
 

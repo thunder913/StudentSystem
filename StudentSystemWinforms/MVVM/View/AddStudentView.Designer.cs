@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.suggestedFacultyNumberBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.facultyNumberBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,6 +54,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.addButton = new System.Windows.Forms.Button();
             this.setSuggestionButton = new System.Windows.Forms.Button();
+            this.suggestBox = new System.Windows.Forms.Integration.ElementHost();
+            this.suggestTextBox1 = new StudentSystemCommon.Controls.SuggestTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -67,17 +68,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Добави студент";
             // 
-            // suggestedFacultyNumberBox
-            // 
-            this.suggestedFacultyNumberBox.Location = new System.Drawing.Point(398, 57);
-            this.suggestedFacultyNumberBox.Name = "suggestedFacultyNumberBox";
-            this.suggestedFacultyNumberBox.Size = new System.Drawing.Size(94, 20);
-            this.suggestedFacultyNumberBox.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(291, 60);
+            this.label2.Location = new System.Drawing.Point(231, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 3;
@@ -279,10 +273,23 @@
             this.setSuggestionButton.Text = "Въведи";
             this.setSuggestionButton.UseVisualStyleBackColor = true;
             // 
+            // suggestBox
+            // 
+            this.suggestBox.BackColor = System.Drawing.Color.Transparent;
+            this.suggestBox.BackColorTransparent = true;
+            this.suggestBox.ForeColor = System.Drawing.Color.Transparent;
+            this.suggestBox.Location = new System.Drawing.Point(333, 56);
+            this.suggestBox.Name = "suggestBox";
+            this.suggestBox.Size = new System.Drawing.Size(159, 22);
+            this.suggestBox.TabIndex = 29;
+            this.suggestBox.Text = "elementHost1";
+            this.suggestBox.Child = this.suggestTextBox1;
+            // 
             // AddStudentView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.suggestBox);
             this.Controls.Add(this.setSuggestionButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.emailBox);
@@ -307,7 +314,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.facultyNumberBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.suggestedFacultyNumberBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddStudentView";
@@ -320,7 +326,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox suggestedFacultyNumberBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox facultyNumberBox;
         private System.Windows.Forms.Label label3;
@@ -346,5 +351,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button setSuggestionButton;
+        private System.Windows.Forms.Integration.ElementHost suggestBox;
+        private StudentSystemCommon.Controls.SuggestTextBox suggestTextBox1;
     }
 }

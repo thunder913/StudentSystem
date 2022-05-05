@@ -1,4 +1,6 @@
-﻿using StudentSystemWinForms.MVVM.ViewModel;
+﻿using StudentSystemCommon.Controls;
+using StudentSystemWinForms.MVVM.ViewModel;
+using StudentSystemWinForms.Utils;
 using StudentSystemWinForms.Views;
 using System.Windows.Forms;
 
@@ -37,12 +39,10 @@ namespace StudentSystemWinForms.MVVM.View
             addButton.Click += (sender, e) => _model.AddStudentClicked();
             setSuggestionButton.Click += (sender, e) => _model.SetSuggestion();
 
-            suggestedFacultyNumberBox.DataBindings.Add("Text", _model, nameof(_model.SuggestedFacultyNumber), false, DataSourceUpdateMode.OnPropertyChanged);
-            suggestedFacultyNumberBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            suggestedFacultyNumberBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            suggestedFacultyNumberBox.AutoCompleteCustomSource = _model.AutoCompleteCollection;
+            var searchBox = (suggestBox.Child as SuggestTextBox);
 
-            suggestedFacultyNumberBox.KeyDown += (sender, e) => _model.HandleKeyPressed(sender, e);
+
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchBox, _model, "Скорошен", nameof(_model.BestSuggestionFacultyNumber), nameof(_model.SuggestionEntry), nameof(_model.SuggestedFacultyNumberKeyPair), nameof(_model.Suggestions));
         }
     }
 }
