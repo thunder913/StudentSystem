@@ -8,18 +8,23 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public class SearchStudentViewModel : ViewModelBase
     {
-        private const string DefaultSearchTerm = "Търси...";
-        private string _searchWord;
         private StudentService _studentService;
         private SuggestionFileManager _suggestionFileManager;
+        private List<StudentSearchSuggestion> _allSuggestions;
         private List<StudentSearchSuggestion> _suggestions;
-        public AutoCompleteStringCollection AutoCompleteCollection { get; set; }
+        private KeyValuePair<object, string> _facultyNumberKeyPair;
+        private string _bestSuggestion;
+        private StudentSearchSuggestion _suggestionEntry;
+        private StudentSearchResult _selectedStudent;
         private ListView listView { get; set; }
+        private Student _student;
+        private string _searchWord;
         private string _facultyNumber;
         private string _firstName;
         private string _middleName;
@@ -31,6 +36,83 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private string _group;
         private string _course;
         private string _stream;
+        public StudentSearchSuggestion SuggestionEntry
+        {
+            get => _suggestionEntry;
+            set
+            {
+                _suggestionEntry = value;
+                if (_suggestionEntry != null)
+                {
+                    if (_suggestionEntry.FacultyNumber != null)
+                        Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
+                    if (_suggestionEntry.SelectedFacultyNumber != null)
+                    {
+                        this.Search();
+                        BestSuggestion = _suggestionEntry.FacultyNumber;
+                    }
+                }
+
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SuggestionEntry)));
+            }
+        }
+        public List<StudentSearchSuggestion> Suggestions
+        {
+            get => _suggestions;
+            set
+            {
+                _suggestions = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Suggestions)));
+                if (!_suggestions.Any())
+                {
+                    BestSuggestion = null;
+                    return;
+                }
+                var first = _suggestions.First();
+                var inputLengthThreshold =
+                    UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
+                BestSuggestion = SuggestionEntry.FacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
+            }
+        }
+        public string BestSuggestion
+        {
+            get => _bestSuggestion;
+            set
+            {
+                _bestSuggestion = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(BestSuggestion)));
+            }
+        }
+
+        public KeyValuePair<object, string> FacultyNumberKeyPair
+        {
+            get => _facultyNumberKeyPair;
+            set
+            {
+                _facultyNumberKeyPair = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(FacultyNumberKeyPair)));
+            }
+        }
+        public Student Student
+        {
+            get => _student;
+            set
+            {
+                _student = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Student)));
+            }
+        }
+        public StudentSearchResult SelectedStudent
+        {
+            get => _selectedStudent;
+            set
+            {
+                _selectedStudent = value;
+                this.Student = _studentService.GetStudent(value.FacultyNumber);
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedStudent)));
+            }
+        }
+        public ObservableCollection<StudentSearchResult> StudentsResults { get; set; } = new ObservableCollection<StudentSearchResult>();
         public string FacultyNumber
         {
             get => _facultyNumber; set
@@ -104,21 +186,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
         }
 
-        public void HandleKeyPressed(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                var textBox = sender as TextBox;
-                var facNumber = textBox.Text;
-                if (AutoCompleteCollection.Contains(textBox.Text))
-                {
-                    var suggestion = _suggestions.FirstOrDefault(x => x.FacultyNumber == textBox.Text);
-                    SearchWord = facNumber;
-                    this.Search();
-                }
-            }
-        }
-
         public string PhoneNumber
         {
             get => _phoneNumber; set
@@ -145,23 +212,20 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
         }
 
-        public void RemoveText(object sender, EventArgs e)
+        public SearchStudentViewModel(ListView listView)
         {
-            var textBox = sender as TextBox;
-            if (textBox.Text == DefaultSearchTerm)
-            {
-                SearchWord = "";
-            }
+            _suggestionFileManager = new SuggestionFileManager();
+            _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
+            SuggestionEntry = new StudentSearchSuggestion();
+            Suggestions ??= new List<StudentSearchSuggestion>();
+            FacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "FacultyNumber");
+            _studentService = new StudentService(new StudentContext());
+            this.listView = listView;
         }
-
-        public void AddText(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace((sender as TextBox).Text))
-                SearchWord = DefaultSearchTerm;
-        }
-
+        
         public void SelectedItemEvent(object sender)
         {
+            var listView = sender as ListView;
             if (listView.SelectedItems.Count > 0)
             {
                 var selectedItem = listView.SelectedItems[0];
@@ -169,22 +233,10 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 FillSelectedData(student);
             }
         }
-
-        public SearchStudentViewModel(ListView listView)
-        {
-            this.listView = listView;
-            SearchWord = DefaultSearchTerm;
-            _studentService = new StudentService(new StudentContext());
-            _suggestionFileManager = new SuggestionFileManager();
-            
-            _suggestions = _suggestionFileManager.GetStudentSearchSuggestion();
-            AutoCompleteCollection = new AutoCompleteStringCollection();
-            AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
-        }
-
+        
         public void Search()
         {
-            var students = this._studentService.SearchStudentsByFacultyNumber(SearchWord != DefaultSearchTerm ? SearchWord : null);
+            var students = this._studentService.SearchStudentsByFacultyNumber(SuggestionEntry.FacultyNumber);
             this.listView.Items.Clear();
             foreach (var item in students)
             {
@@ -194,12 +246,10 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             }
             if (students.Count > 0)
             {
-                if (SearchWord != DefaultSearchTerm)
+                if (!string.IsNullOrWhiteSpace(this.SuggestionEntry.FacultyNumber))
                 {
-                    _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = SearchWord });
-                    _suggestions = _suggestionFileManager.GetStudentSearchSuggestion();
-                    AutoCompleteCollection.Clear();
-                    AutoCompleteCollection.AddRange(_suggestions.Select(x => x.FacultyNumber).ToArray());
+                    _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = this.SuggestionEntry.FacultyNumber });
+                    _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
                 }
             }
         }

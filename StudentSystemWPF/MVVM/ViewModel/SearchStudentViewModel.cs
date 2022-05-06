@@ -35,6 +35,8 @@ namespace StudentSystem.MVVM.ViewModel
                 {
                     if (_suggestionEntry.FacultyNumber != null)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
+                    if(_suggestionEntry.SelectedFacultyNumber != null)
+                        this.Search();
                 }
 
                 OnPropertyChanged();

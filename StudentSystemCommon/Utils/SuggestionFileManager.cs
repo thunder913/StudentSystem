@@ -62,6 +62,7 @@ namespace StudentSystemCommon.Utils
             return facultyNumbers.Select(x => new StudentSearchSuggestion()
             {
                 FacultyNumber = x,
+                SelectedFacultyNumber = x,
             }).ToList();
         }
         public List<UserLoginSuggestion> GetLoginSuggestions()

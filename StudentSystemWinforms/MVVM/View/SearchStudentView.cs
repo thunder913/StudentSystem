@@ -1,4 +1,6 @@
-﻿using StudentSystemWinForms.MVVM.ViewModel;
+﻿using StudentSystemCommon.Controls;
+using StudentSystemWinForms.MVVM.ViewModel;
+using StudentSystemWinForms.Utils;
 using StudentSystemWinForms.Views;
 using System.Windows.Forms;
 
@@ -23,11 +25,11 @@ namespace StudentSystemWinForms.MVVM.View
 
         public override void PerformBinding()
         {
-            searchBox.DataBindings.Add("Text", _model, nameof(_model.SearchWord), false, DataSourceUpdateMode.OnPropertyChanged);
 
             searchResult.Columns.Add("Факултетен номер", 120,HorizontalAlignment.Left);
             searchResult.Columns.Add("Име", 120, HorizontalAlignment.Right);
             searchResult.ItemSelectionChanged += (sender, e) => _model.SelectedItemEvent(sender);
+            
             facultyNumberBox.DataBindings.Add("Text", _model, nameof(_model.FacultyNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             nameBox.DataBindings.Add("Text", _model, nameof(_model.FirstName), false, DataSourceUpdateMode.OnPropertyChanged);
             familyBox.DataBindings.Add("Text", _model, nameof(_model.LastName), false, DataSourceUpdateMode.OnPropertyChanged);
@@ -39,15 +41,12 @@ namespace StudentSystemWinForms.MVVM.View
             streamBox.DataBindings.Add("Text", _model, nameof(_model.Stream), false, DataSourceUpdateMode.OnPropertyChanged);
             phoneNumberBox.DataBindings.Add("Text", _model, nameof(_model.PhoneNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             emailBox.DataBindings.Add("Text", _model, nameof(_model.Email), false, DataSourceUpdateMode.OnPropertyChanged);
+            
+            var searchSuggest = (searchSuggestBox.Child as SuggestTextBox);
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchSuggest, _model, "Парола", nameof(_model.BestSuggestion),
+               nameof(_model.SuggestionEntry), nameof(_model.FacultyNumberKeyPair), nameof(_model.Suggestions));
 
-            searchBox.GotFocus += (sender, e) => _model.RemoveText(sender, e);
-            searchBox.LostFocus += (sender, e) => _model.AddText(sender, e);
             searchButton.Click += (sender, e) => _model.Search();
-
-            searchBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            searchBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            searchBox.AutoCompleteCustomSource = _model.AutoCompleteCollection;
-            searchBox.KeyDown += (sender, e) => _model.HandleKeyPressed(sender, e);
         }
     }
 }

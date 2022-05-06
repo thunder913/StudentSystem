@@ -46,6 +46,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                     {
                         FillTextBoxData(_suggestionEntry);
                         AddSuggestionToList();
+                        BestSuggestion = _suggestionEntry;
                     }
                 }
 

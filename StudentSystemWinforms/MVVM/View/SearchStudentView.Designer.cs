@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.searchBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.searchResult = new System.Windows.Forms.ListView();
@@ -53,14 +52,9 @@
             this.phoneNumberBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.facultyNumberBox = new System.Windows.Forms.TextBox();
+            this.searchSuggestBox = new System.Windows.Forms.Integration.ElementHost();
+            this.suggestTextBox1 = new StudentSystemCommon.Controls.SuggestTextBox();
             this.SuspendLayout();
-            // 
-            // searchBox
-            // 
-            this.searchBox.Location = new System.Drawing.Point(36, 34);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(143, 20);
-            this.searchBox.TabIndex = 0;
             // 
             // searchButton
             // 
@@ -269,10 +263,20 @@
             this.facultyNumberBox.Size = new System.Drawing.Size(112, 20);
             this.facultyNumberBox.TabIndex = 25;
             // 
+            // searchSuggestBox
+            // 
+            this.searchSuggestBox.Location = new System.Drawing.Point(28, 32);
+            this.searchSuggestBox.Name = "searchSuggestBox";
+            this.searchSuggestBox.Size = new System.Drawing.Size(163, 22);
+            this.searchSuggestBox.TabIndex = 27;
+            this.searchSuggestBox.Text = "elementHost1";
+            this.searchSuggestBox.Child = this.suggestTextBox1;
+            // 
             // SearchStudentView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.searchSuggestBox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.facultyNumberBox);
             this.Controls.Add(this.emailBox);
@@ -297,7 +301,6 @@
             this.Controls.Add(this.searchResult);
             this.Controls.Add(this.nameBox);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.searchBox);
             this.Name = "SearchStudentView";
             this.Size = new System.Drawing.Size(581, 441);
             this.ResumeLayout(false);
@@ -306,8 +309,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.ListView searchResult;
@@ -332,5 +333,7 @@
         private System.Windows.Forms.TextBox phoneNumberBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox facultyNumberBox;
+        private System.Windows.Forms.Integration.ElementHost searchSuggestBox;
+        private StudentSystemCommon.Controls.SuggestTextBox suggestTextBox1;
     }
 }
