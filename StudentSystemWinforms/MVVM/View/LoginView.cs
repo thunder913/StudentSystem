@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using StudentSystemCommon.Controls;
+﻿using StudentSystemCommon.Controls;
 using StudentSystemWinForms.MVVM.View;
 using StudentSystemWinForms.MVVM.ViewModel;
 using StudentSystemWinForms.Utils;
