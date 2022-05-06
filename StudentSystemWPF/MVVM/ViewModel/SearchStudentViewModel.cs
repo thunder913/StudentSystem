@@ -36,7 +36,10 @@ namespace StudentSystem.MVVM.ViewModel
                     if (_suggestionEntry.FacultyNumber != null)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
                     if(_suggestionEntry.SelectedFacultyNumber != null)
+                    {
+                        BestSuggestion = _suggestionEntry;
                         this.Search();
+                    }
                 }
 
                 OnPropertyChanged();
@@ -142,7 +145,7 @@ namespace StudentSystem.MVVM.ViewModel
             {
                 this.StudentsResults.Add(new StudentSearchResult() { FacultyNumber = item.FacultyNumber, Name = item.FirstName + " " + item.LastName });
             }
-            if (students.Count > 0)
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(facNumber))
             {
                 _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = facNumber });
                 _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();

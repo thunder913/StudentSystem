@@ -40,7 +40,7 @@ namespace StudentSystemCommon.DAL
         }
         public void AddStudent(string specialty, string stream, string course, string group, string facultyNumber, string firstName, string lastName, string middleName, string phoneNumber, string email, string faculty)
         {
-            var nameRegex = new Regex(@"^[A-Za-zа-яА-Я]+");
+            var nameRegex = new Regex(@"^[A-Za-zа-яА-Я]+$");
             var phoneNumberRegex = new Regex(@"^[0-9\+]+$");
             if (string.IsNullOrWhiteSpace(facultyNumber) || facultyNumber.Length < 5)
             {

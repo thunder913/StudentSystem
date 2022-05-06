@@ -130,10 +130,15 @@ namespace StudentSystem.MVVM.ViewModel
                 _suggestionEntry = value;
                 if (_suggestionEntry != null)
                 {
-                    if (_suggestionEntry.Username != null)
-                        Suggestions = _allSuggestions.Where(s => s.Username.ToLower().Contains(_suggestionEntry.Username.ToLower())).ToList();
                     if (_suggestionEntry.Password != null)
                         Suggestions = _allSuggestions.Where(s => s.Password.ToLower().Contains(_suggestionEntry.Password.ToLower())).ToList();
+                    if (_suggestionEntry.Username != null)
+                        Suggestions = _allSuggestions.Where(s => s.Username.ToLower().Contains(_suggestionEntry.Username.ToLower())).ToList();
+                    if (_allSuggestions.Any(x => x.Username == _suggestionEntry.Username && x.Password == _suggestionEntry.Password))
+                    {
+                        BestSuggestionUsername = _suggestionEntry.Username;
+                        BestSuggestionPassword = _suggestionEntry.Password;
+                    }
                 }
                 
                 OnPropertyChanged();
