@@ -12,6 +12,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public class AddStudentViewModel : ViewModelBase
     {
+        #region PrivateProperties
         private StudentService studentService;
         private SuggestionFileManager _suggestionFileManager;
         private List<StudentAddSuggestion> _suggestions;
@@ -32,6 +33,8 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private string _group;
         private string _course;
         private string _stream;
+        #endregion
+        #region PublicProperties
         public StudentAddSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
@@ -205,6 +208,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Email)));
             }
         }
+        #endregion
         public AddStudentViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -214,7 +218,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             Suggestions ??= new List<StudentAddSuggestion>();
             SuggestedFacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "SuggestedFacultyNumber");
         }
-
+        #region Methods
         public void AddStudentClicked()
         {
             try
@@ -262,5 +266,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             });
             _allSuggestions = _suggestionFileManager.GetStudentAddSuggestions();
         }
+        #endregion
     }
 }

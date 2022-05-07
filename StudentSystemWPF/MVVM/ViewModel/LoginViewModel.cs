@@ -13,6 +13,7 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class LoginViewModel : ObservableObject, IViewModelSuggestions
     {
+        #region PrivateProperties
         private UserService _userService;
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
@@ -24,7 +25,30 @@ namespace StudentSystem.MVVM.ViewModel
         private UserLoginSuggestion _suggestionEntry;
         private string _bestSuggestionUsername;
         private string _bestSuggestionPassword;
+        #endregion
+        #region PublicProperties
+        public UserLoginSuggestion SuggestionEntry
+        {
+            get => _suggestionEntry;
+            set
+            {
+                _suggestionEntry = value;
+                if (_suggestionEntry != null)
+                {
+                    if (_suggestionEntry.Password != null)
+                        Suggestions = _allSuggestions.Where(s => s.Password.ToLower().Contains(_suggestionEntry.Password.ToLower())).ToList();
+                    if (_suggestionEntry.Username != null)
+                        Suggestions = _allSuggestions.Where(s => s.Username.ToLower().Contains(_suggestionEntry.Username.ToLower())).ToList();
+                    if (_allSuggestions.Any(x => x.Username == _suggestionEntry.Username && x.Password == _suggestionEntry.Password))
+                    {
+                        BestSuggestionUsername = _suggestionEntry.Username;
+                        BestSuggestionPassword = _suggestionEntry.Password;
+                    }
+                }
 
+                OnPropertyChanged();
+            }
+        }
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
 
@@ -46,55 +70,6 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public LoginViewModel()
-        {
-            _suggestionFileManager = new SuggestionFileManager();
-            _allSuggestions = _suggestionFileManager.GetLoginSuggestions();
-            SuggestionEntry = new UserLoginSuggestion();
-            UserKeyPair =
-                new KeyValuePair<object, string>(_suggestionEntry, "Username");
-            PassKeyPair =
-                new KeyValuePair<object, string>(_suggestionEntry, "Password");
-            CurrentViewModelParent = this;
-            CurrentViewModel = null;
-            LoginCommand = new LoginCommand(this);
-            RegisterCommand = new RegisterCommand(this);
-            _userService = new UserService(new StudentContext());
-        }
-
-        public bool CanExecute()
-        {
-            return SuggestionEntry != null
-                   && !string.IsNullOrEmpty(SuggestionEntry.Username) 
-                   && !string.IsNullOrEmpty(SuggestionEntry.Password);
-        }
-        public void Login(object parameter)
-        {
-            if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
-            {
-                _suggestionFileManager.AddLoginSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
-                CurrentViewModelParent = new MainViewModel();
-            }
-            else
-            {
-                MessageBox.Show("Невалидно потребителско име или парола!", "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public void Register(object parameter)
-        {
-            try
-            {
-                _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
-                MessageBox.Show("Успешно се регистрирахте!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }            
-        }
-
         public IViewModel CurrentViewModel
         {
             get => _currentViewModel;
@@ -118,33 +93,6 @@ namespace StudentSystem.MVVM.ViewModel
         public ICommand CycleSuggestionCommand { get; set; }
         public int SuggestionIndex { get; set; }
         public bool IsCycling { get; set; }
-        public void ExecuteCycleSuggestions(object parameter)
-        {
-        }
-
-        public UserLoginSuggestion SuggestionEntry
-        {
-            get => _suggestionEntry;
-            set
-            {
-                _suggestionEntry = value;
-                if (_suggestionEntry != null)
-                {
-                    if (_suggestionEntry.Password != null)
-                        Suggestions = _allSuggestions.Where(s => s.Password.ToLower().Contains(_suggestionEntry.Password.ToLower())).ToList();
-                    if (_suggestionEntry.Username != null)
-                        Suggestions = _allSuggestions.Where(s => s.Username.ToLower().Contains(_suggestionEntry.Username.ToLower())).ToList();
-                    if (_allSuggestions.Any(x => x.Username == _suggestionEntry.Username && x.Password == _suggestionEntry.Password))
-                    {
-                        BestSuggestionUsername = _suggestionEntry.Username;
-                        BestSuggestionPassword = _suggestionEntry.Password;
-                    }
-                }
-                
-                OnPropertyChanged();
-            }
-        }
-
         public List<UserLoginSuggestion> Suggestions
         {
             get => _suggestions;
@@ -185,5 +133,59 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
+        public LoginViewModel()
+        {
+            _suggestionFileManager = new SuggestionFileManager();
+            _allSuggestions = _suggestionFileManager.GetLoginSuggestions();
+            SuggestionEntry = new UserLoginSuggestion();
+            UserKeyPair =
+                new KeyValuePair<object, string>(_suggestionEntry, "Username");
+            PassKeyPair =
+                new KeyValuePair<object, string>(_suggestionEntry, "Password");
+            CurrentViewModelParent = this;
+            CurrentViewModel = null;
+            LoginCommand = new LoginCommand(this);
+            RegisterCommand = new RegisterCommand(this);
+            _userService = new UserService(new StudentContext());
+        }
+        #region Methods
+        public bool CanExecute()
+        {
+            return SuggestionEntry != null
+                   && !string.IsNullOrEmpty(SuggestionEntry.Username)
+                   && !string.IsNullOrEmpty(SuggestionEntry.Password);
+        }
+        public void Login(object parameter)
+        {
+            if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
+            {
+                _suggestionFileManager.AddLoginSuggestion(new UserLoginSuggestion(SuggestionEntry.Username, SuggestionEntry.Password));
+                CurrentViewModelParent = new MainViewModel();
+            }
+            else
+            {
+                MessageBox.Show("Невалидно потребителско име или парола!", "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void Register(object parameter)
+        {
+            try
+            {
+                _userService.Register(SuggestionEntry.Username, SuggestionEntry.Password);
+                MessageBox.Show("Успешно се регистрирахте!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Грешка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+        public void ExecuteCycleSuggestions(object parameter)
+        {
+        }
+        #endregion
     }
 }

@@ -13,10 +13,9 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class AddStudentViewModel : ObservableObject, IViewModel
     {
+        #region PrivateProperties
         private readonly SuggestionFileManager _suggestionFileManager;
         private StudentService studentService { get; set; }
-        public ICommand AddCommand { get; set; }
-        public ICommand SetSuggestionCommand { get; set; }
         private IViewModel _currentViewModel;
         private IViewModel _currentViewModelParent;
         private List<StudentAddSuggestion> _suggestions;
@@ -24,6 +23,10 @@ namespace StudentSystem.MVVM.ViewModel
         private StudentAddSuggestion _bestSuggestion;
         private StudentAddSuggestion _suggestionEntry;
         private KeyValuePair<object, string> _suggestedFacultyNumberKeyPair;
+        #endregion
+        #region PublicProperties
+        public ICommand AddCommand { get; set; }
+        public ICommand SetSuggestionCommand { get; set; }        
         public void SetStudentSuggestion()
         {
             var suggestion = studentService.GetStudentSuggestion(SuggestionEntry.SuggestedFacultyNumber);
@@ -128,7 +131,7 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        #endregion
         public AddStudentViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -142,7 +145,7 @@ namespace StudentSystem.MVVM.ViewModel
             SetSuggestionCommand = new SetSuggestionCommand(this);
             studentService = new StudentService(new StudentContext());
         }
-
+        #region Methods
         public void AddStudent()
         {
             try
@@ -191,5 +194,6 @@ namespace StudentSystem.MVVM.ViewModel
                    && !string.IsNullOrEmpty(SuggestionEntry.Stream)
                    && !string.IsNullOrEmpty(SuggestionEntry.MiddleName);
         }
+        #endregion
     }
 }

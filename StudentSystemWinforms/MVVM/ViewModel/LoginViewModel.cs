@@ -12,6 +12,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public sealed class LoginViewModel : ViewModelBase
     {
+        #region PrivateProperties
         private UserService _userService;
         private List<UserLoginSuggestion> _suggestions = new List<UserLoginSuggestion>();
         private List<UserLoginSuggestion> _allSuggestions;
@@ -21,6 +22,8 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private UserLoginSuggestion _suggestionEntry;
         private string _bestSuggestionUsername;
         private string _bestSuggestionPassword;
+        #endregion
+        #region PublicProperties
         public UserLoginSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
@@ -102,7 +105,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(PassKeyPair)));
             }
         }
-
+        #endregion
         public LoginViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -114,7 +117,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 new KeyValuePair<object, string>(_suggestionEntry, "Password");
             _userService = new UserService(new StudentContext());
         }
-
+        #region Methods
         public void Login(Action redirect)
         {
             if (_userService.Login(SuggestionEntry.Username, SuggestionEntry.Password))
@@ -139,7 +142,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             {
                 MessageBox.Show(ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+        #endregion
     }
 }

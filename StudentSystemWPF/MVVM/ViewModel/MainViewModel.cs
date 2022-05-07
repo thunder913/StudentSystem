@@ -7,11 +7,13 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class MainViewModel : ObservableObject, IViewModelSuggestions
     {
+        #region PrivateProperties
         private IViewModel _currentViewModel;
 
         private IViewModel _currentViewModelParent;
         private KeyValuePair<object, string> _itemKeyPair;
-
+        #endregion
+        #region PublicProperties
         public ICommand HomeCommand { get; set; }
         public ICommand AddStudentCommand { get; set; }
         public ICommand SearchStudentCommand { get; set; }
@@ -47,6 +49,7 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
         public MainViewModel()
         {
             HomeCommand = new NavigationCommand<HomeViewModel>(this);
@@ -55,15 +58,10 @@ namespace StudentSystem.MVVM.ViewModel
             CycleSuggestionCommand = new CycleSuggestionCommand(this);
             CurrentViewModel = new HomeViewModel();
         }
-
+        #region Methods
         public void ExecuteCycleSuggestions(object parameter)
         {
         }
-
-        //public void SignOut()
-        //{
-        //    UserInfo.CurrentUser = null;
-        //    CurrentViewModel = new LoginViewModel();
-        //}
+        #endregion
     }
 }

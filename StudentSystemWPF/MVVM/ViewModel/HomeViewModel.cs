@@ -9,11 +9,19 @@ namespace StudentSystem.MVVM.ViewModel
 {
     public class HomeViewModel : ObservableObject, IViewModel
     {
+        #region PrivateProperties
+        private IViewModel _currentViewModel;
+        private IViewModel _currentViewModelParent;
+        private int _suggestionCount;
+        private bool _hasStatus;
+        private string _statusMessage;
+        private string _selectedDateInterval;
+        private List<string> _dateIntervalSettingsList;
         private readonly UserService _userService;
-        public ICommand UpdateSettingsCommand { get; set; }
-
         private string _username { get; set; } = "Pesho!";
-
+        #endregion
+        #region PublicProperties
+        public ICommand UpdateSettingsCommand { get; set; }
         public List<string> DateIntervalSettingsList
         {
             get => _dateIntervalSettingsList;
@@ -69,7 +77,7 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        #endregion
         public HomeViewModel()
         {
             this.Username = UserInfo.CurrentUser.Username;
@@ -77,14 +85,8 @@ namespace StudentSystem.MVVM.ViewModel
             SuggestionCount = UserInfo.CurrentUser.Settings.SuggestionsCount;
             _userService = new UserService(new StudentContext());
         }
-        private IViewModel _currentViewModel;
-        private IViewModel _currentViewModelParent;
-        private int _suggestionCount;
-        private bool _hasStatus;
-        private string _statusMessage;
-        private string _selectedDateInterval;
-        private List<string> _dateIntervalSettingsList;
 
+        #region Methods
         public bool CanExecute()
         {
             return _suggestionCount >= 0;
@@ -97,5 +99,6 @@ namespace StudentSystem.MVVM.ViewModel
             settings.SuggestionsCount = _suggestionCount;
             _userService.UpdateUserSettings(user.UserId, settings);
         }
+        #endregion
     }
 }

@@ -13,6 +13,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
 {
     public class SearchStudentViewModel : ViewModelBase
     {
+        #region PrivateProperties
         private StudentService _studentService;
         private SuggestionFileManager _suggestionFileManager;
         private List<StudentSearchSuggestion> _allSuggestions;
@@ -35,6 +36,8 @@ namespace StudentSystemWinForms.MVVM.ViewModel
         private string _group;
         private string _course;
         private string _stream;
+        #endregion
+        #region PublicProperties
         public StudentSearchSuggestion SuggestionEntry
         {
             get => _suggestionEntry;
@@ -210,7 +213,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SearchWord)));
             }
         }
-
+        #endregion
         public SearchStudentViewModel(ListView listView)
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -221,7 +224,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             _studentService = new StudentService(new StudentContext());
             this.listView = listView;
         }
-        
+        #region Methods
         public void SelectedItemEvent(object sender)
         {
             var listView = sender as ListView;
@@ -267,5 +270,6 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             this.PhoneNumber = student.PhoneNumber;
             this.Email = student.Email;
         }
+        #endregion
     }
 }

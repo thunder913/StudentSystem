@@ -13,6 +13,7 @@ namespace StudentSystem.MVVM.ViewModel
 {
     internal class SearchStudentViewModel : ObservableObject, IViewModel
     {
+        #region PrivateProperties
         private StudentService _studentService;
         private SuggestionFileManager _suggestionFileManager;
         private List<StudentSearchSuggestion> _allSuggestions;
@@ -24,6 +25,8 @@ namespace StudentSystem.MVVM.ViewModel
         private IViewModel _currentViewModelParent;
         private StudentSearchResult _selectedStudent;
         private Student _student;
+        #endregion
+        #region PublicProperties
         public ICommand SearchCommand { get; set; }
         public StudentSearchSuggestion SuggestionEntry
         {
@@ -122,7 +125,7 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        #endregion
         public SearchStudentViewModel() 
         {
             _suggestionFileManager = new SuggestionFileManager();
@@ -135,7 +138,7 @@ namespace StudentSystem.MVVM.ViewModel
             _studentService = new StudentService(new StudentContext());
             SearchCommand = new SearchCommand(this);
         }
-
+        #region Methods
         public void Search()
         {
             var facNumber = this.SuggestionEntry.FacultyNumber;
@@ -151,5 +154,6 @@ namespace StudentSystem.MVVM.ViewModel
                 _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
             }
         }
+        #endregion
     }
 }
