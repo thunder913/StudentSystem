@@ -70,7 +70,7 @@
             this.nameBox.Enabled = false;
             this.nameBox.Location = new System.Drawing.Point(305, 114);
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(112, 20);
+            this.nameBox.Size = new System.Drawing.Size(131, 20);
             this.nameBox.TabIndex = 2;
             // 
             // searchResult
@@ -141,7 +141,7 @@
             this.familyBox.Enabled = false;
             this.familyBox.Location = new System.Drawing.Point(305, 189);
             this.familyBox.Name = "familyBox";
-            this.familyBox.Size = new System.Drawing.Size(112, 20);
+            this.familyBox.Size = new System.Drawing.Size(131, 20);
             this.familyBox.TabIndex = 9;
             // 
             // courseBox
@@ -175,7 +175,7 @@
             this.specialtyBox.Enabled = false;
             this.specialtyBox.Location = new System.Drawing.Point(305, 265);
             this.specialtyBox.Name = "specialtyBox";
-            this.specialtyBox.Size = new System.Drawing.Size(112, 20);
+            this.specialtyBox.Size = new System.Drawing.Size(131, 20);
             this.specialtyBox.TabIndex = 13;
             // 
             // streamBox
@@ -198,7 +198,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(345, 318);
+            this.label8.Location = new System.Drawing.Point(488, 385);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 13);
             this.label8.TabIndex = 18;
@@ -207,7 +207,7 @@
             // groupBox
             // 
             this.groupBox.Enabled = false;
-            this.groupBox.Location = new System.Drawing.Point(305, 335);
+            this.groupBox.Location = new System.Drawing.Point(451, 406);
             this.groupBox.Name = "groupBox";
             this.groupBox.Size = new System.Drawing.Size(112, 20);
             this.groupBox.TabIndex = 17;
@@ -215,15 +215,15 @@
             // emailBox
             // 
             this.emailBox.Enabled = false;
-            this.emailBox.Location = new System.Drawing.Point(451, 406);
+            this.emailBox.Location = new System.Drawing.Point(305, 335);
             this.emailBox.Name = "emailBox";
-            this.emailBox.Size = new System.Drawing.Size(112, 20);
+            this.emailBox.Size = new System.Drawing.Size(131, 20);
             this.emailBox.TabIndex = 24;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(486, 390);
+            this.label9.Location = new System.Drawing.Point(340, 319);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(41, 13);
             this.label9.TabIndex = 23;
@@ -243,7 +243,7 @@
             this.phoneNumberBox.Enabled = false;
             this.phoneNumberBox.Location = new System.Drawing.Point(305, 406);
             this.phoneNumberBox.Name = "phoneNumberBox";
-            this.phoneNumberBox.Size = new System.Drawing.Size(112, 20);
+            this.phoneNumberBox.Size = new System.Drawing.Size(131, 20);
             this.phoneNumberBox.TabIndex = 21;
             // 
             // label11

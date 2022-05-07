@@ -36,12 +36,11 @@ namespace StudentSystemWinForms.MVVM.View
             streamBox.DataBindings.Add("Text", _model, nameof(_model.Stream), false, DataSourceUpdateMode.OnPropertyChanged);
             phoneNumberBox.DataBindings.Add("Text", _model, nameof(_model.PhoneNumber), false, DataSourceUpdateMode.OnPropertyChanged);
             emailBox.DataBindings.Add("Text", _model, nameof(_model.Email), false, DataSourceUpdateMode.OnPropertyChanged);
+            
             addButton.Click += (sender, e) => _model.AddStudentClicked();
             setSuggestionButton.Click += (sender, e) => _model.SetSuggestion();
 
             var searchBox = (suggestBox.Child as SuggestTextBox);
-
-
             SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchBox, _model, "Скорошен", nameof(_model.BestSuggestionFacultyNumber), nameof(_model.SuggestionEntry), nameof(_model.SuggestedFacultyNumberKeyPair), nameof(_model.Suggestions));
         }
     }

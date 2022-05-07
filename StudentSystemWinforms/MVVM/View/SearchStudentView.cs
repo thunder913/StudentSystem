@@ -43,7 +43,7 @@ namespace StudentSystemWinForms.MVVM.View
             emailBox.DataBindings.Add("Text", _model, nameof(_model.Email), false, DataSourceUpdateMode.OnPropertyChanged);
             
             var searchSuggest = (searchSuggestBox.Child as SuggestTextBox);
-            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchSuggest, _model, "Парола", nameof(_model.BestSuggestion),
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchSuggest, _model, "Търси...", nameof(_model.BestSuggestion),
                nameof(_model.SuggestionEntry), nameof(_model.FacultyNumberKeyPair), nameof(_model.Suggestions));
 
             searchButton.Click += (sender, e) => _model.Search();
