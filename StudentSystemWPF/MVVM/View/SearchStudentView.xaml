@@ -24,6 +24,7 @@
             Items="{Binding Suggestions}"
             ValueMember="{Binding FacultyNumberKeyPair}"
             AutoSuggest="{Binding BestSuggestion.FacultyNumber}"
+            CycleSuggestions="{Binding CycleSuggestionCommand}"
             Placeholder="Търси"
             Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
             Width="200"

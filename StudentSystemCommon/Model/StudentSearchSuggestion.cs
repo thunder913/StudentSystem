@@ -41,5 +41,15 @@ namespace StudentSystemCommon.MVVM.Model
         {
             
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is StudentSearchSuggestion other)
+            {
+                return FacultyNumber == other.FacultyNumber;
+            }
+
+            return false;
+        }
     }
 }

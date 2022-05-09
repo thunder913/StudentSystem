@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace StudentSystemCommon.Controls
 {
@@ -9,6 +10,12 @@ namespace StudentSystemCommon.Controls
     /// </summary>
     public partial class SuggestTextBox : UserControl
     {
+        public static readonly DependencyProperty CycleSuggestionsProperty =
+        DependencyProperty.Register(
+            "CycleSuggestions",
+            typeof(ICommand),
+            typeof(SuggestTextBox),
+            new UIPropertyMetadata(null));
 
         public static readonly DependencyProperty ItemsProperty =
     DependencyProperty.Register("Items",
@@ -57,6 +64,11 @@ namespace StudentSystemCommon.Controls
             set => SetValue(AutoSuggestProperty, value);
         }
 
+        public ICommand CycleSuggestions
+        {
+            get => (ICommand)GetValue(CycleSuggestionsProperty);
+            set => SetValue(CycleSuggestionsProperty, value);
+        }
         public object Items
         {
             get => GetValue(ItemsProperty);

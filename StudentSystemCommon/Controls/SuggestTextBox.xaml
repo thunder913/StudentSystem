@@ -46,8 +46,10 @@
                 Foreground="#41b3a3"
                 x:Name="SearchBar" VerticalContentAlignment="Center">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Tab" Command="{Binding CycleSuggestionCommand}" CommandParameter="1"/>
-                    <KeyBinding Modifiers="Shift" Key="Tab" Command="{Binding CycleSuggestionCommand}" CommandParameter="-1"/>
+                    <KeyBinding Key="Down" Command="{Binding Path=CycleSuggestions, ElementName=Control}" CommandParameter="1"/>
+                    <KeyBinding Key="Tab" Command="{Binding Path=CycleSuggestions, ElementName=Control}" CommandParameter="1"/>
+                    <KeyBinding Modifiers="Shift" Key="Tab" Command="{Binding Path=CycleSuggestions, ElementName=Control}" CommandParameter="-1"/>
+                    <KeyBinding Key="Up" Command="{Binding Path=CycleSuggestions, ElementName=Control}" CommandParameter="-1"/>
                 </TextBox.InputBindings>
                 <TextBox.Text>
                     <converter:ConverterBindableParameter 

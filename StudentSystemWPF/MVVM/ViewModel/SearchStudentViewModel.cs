@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using System;
 
 namespace StudentSystem.MVVM.ViewModel
 {
-    internal class SearchStudentViewModel : ObservableObject, IViewModel
+    internal class SearchStudentViewModel : ObservableObject, IViewModelSuggestions
     {
         #region PrivateProperties
         private StudentService _studentService;
@@ -33,14 +34,25 @@ namespace StudentSystem.MVVM.ViewModel
             get => _suggestionEntry;
             set
             {
+                if (SuggestionEntry?.FacultyNumber == "12")
+                {
+                    var asd = "asd";
+                }
+                if (!_allSuggestions.Contains(value) && IsCycling
+                 || _suggestions == null
+                 || !_suggestions.Any())
+                {
+                    IsCycling = false;
+                    SuggestionIndex = -1;
+                }
                 _suggestionEntry = value;
                 if (_suggestionEntry != null)
                 {
-                    if (_suggestionEntry.FacultyNumber != null)
+                    if (_suggestionEntry.FacultyNumber != null && !IsCycling)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
-                    if(_suggestionEntry.SelectedFacultyNumber != null)
+                    if (_suggestionEntry.SelectedFacultyNumber != null)
                     {
-                        BestSuggestion = _suggestionEntry;
+                       BestSuggestion = _suggestionEntry;
                         this.Search();
                     }
                 }
@@ -125,8 +137,12 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ICommand CycleSuggestionCommand { get; set; }
+        public int SuggestionIndex { get; set; }
+        public bool IsCycling { get; set; }
         #endregion
-        public SearchStudentViewModel() 
+        public SearchStudentViewModel()
         {
             _suggestionFileManager = new SuggestionFileManager();
             _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
@@ -137,6 +153,7 @@ namespace StudentSystem.MVVM.ViewModel
             CurrentViewModel = null;
             _studentService = new StudentService(new StudentContext());
             SearchCommand = new SearchCommand(this);
+            CycleSuggestionCommand = new CycleSuggestionCommand(this);
         }
         #region Methods
         public void Search()
@@ -153,6 +170,19 @@ namespace StudentSystem.MVVM.ViewModel
                 _suggestionFileManager.AddStudentSearchSuggestion(new StudentSearchSuggestion() { FacultyNumber = facNumber });
                 _allSuggestions = _suggestionFileManager.GetStudentSearchSuggestion();
             }
+        }
+
+        public void ExecuteCycleSuggestions(object parameter)
+        {
+            if (!_suggestions.Any()) return;
+            int index = SuggestionIndex + int.Parse((string)parameter);
+            index = index % Math.Min(UserInfo.CurrentUser.Settings.SuggestionsCount, _suggestions.Count);
+            IsCycling = true;
+            if (index < 0)
+                index = _suggestions.Count - 1;
+            SuggestionEntry = _suggestions[index];
+            SuggestionIndex = index;
+            BestSuggestion = _suggestions[index];
         }
         #endregion
     }

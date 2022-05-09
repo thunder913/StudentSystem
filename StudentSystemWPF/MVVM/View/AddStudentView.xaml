@@ -122,7 +122,8 @@
             ValueMember="{Binding SuggestedFacultyNumberKeyPair}"
             AutoSuggest="{Binding BestSuggestion.SuggestedFacultyNumber}"
             Placeholder="Скорошен"
-            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            Text="{Binding SuggestionEntry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            CycleSuggestions="{Binding CycleSuggestionCommand}"
             Width="100" Margin="140,0,0,0"/>
         <Button 
             Style="{StaticResource ButtonStyle}" 

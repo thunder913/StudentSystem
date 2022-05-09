@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace StudentSystem.MVVM.ViewModel
 {
-    public class AddStudentViewModel : ObservableObject, IViewModel
+    public class AddStudentViewModel : ObservableObject, IViewModelSuggestions
     {
         #region PrivateProperties
         private readonly SuggestionFileManager _suggestionFileManager;
@@ -26,7 +26,7 @@ namespace StudentSystem.MVVM.ViewModel
         #endregion
         #region PublicProperties
         public ICommand AddCommand { get; set; }
-        public ICommand SetSuggestionCommand { get; set; }        
+        public ICommand SetSuggestionCommand { get; set; }
         public void SetStudentSuggestion()
         {
             var suggestion = studentService.GetStudentSuggestion(SuggestionEntry.SuggestedFacultyNumber);
@@ -59,16 +59,23 @@ namespace StudentSystem.MVVM.ViewModel
             get => _suggestionEntry;
             set
             {
+                if (!_allSuggestions.Contains(value) && IsCycling
+                 || _suggestions == null
+                 || !_suggestions.Any())
+                {
+                    IsCycling = false;
+                    SuggestionIndex = -1;
+                }
                 _suggestionEntry = value;
-                if (_suggestionEntry != null)
+                if (_suggestionEntry != null && !IsCycling)
                 {
                     if (_suggestionEntry.SuggestedFacultyNumber != null)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.SuggestedFacultyNumber)).ToList();
-                    if(_suggestionEntry.FacultyNumber != null)
+                    if (_suggestionEntry.FacultyNumber != null)
                         AddSuggestion();
                 }
 
-                
+
 
                 OnPropertyChanged();
             }
@@ -131,6 +138,10 @@ namespace StudentSystem.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ICommand CycleSuggestionCommand { get; set; }
+        public int SuggestionIndex { get; set; }
+        public bool IsCycling { get; set; }
         #endregion
         public AddStudentViewModel()
         {
@@ -144,6 +155,7 @@ namespace StudentSystem.MVVM.ViewModel
             AddCommand = new AddStudentCommand(this);
             SetSuggestionCommand = new SetSuggestionCommand(this);
             studentService = new StudentService(new StudentContext());
+            CycleSuggestionCommand = new CycleSuggestionCommand(this);
         }
         #region Methods
         public void AddStudent()
@@ -193,6 +205,19 @@ namespace StudentSystem.MVVM.ViewModel
                    && !string.IsNullOrEmpty(SuggestionEntry.Specialty)
                    && !string.IsNullOrEmpty(SuggestionEntry.Stream)
                    && !string.IsNullOrEmpty(SuggestionEntry.MiddleName);
+        }
+
+        public void ExecuteCycleSuggestions(object parameter)
+        {
+            if (!_suggestions.Any()) return;
+            int index = SuggestionIndex + int.Parse((string)parameter);
+            index = index % Math.Min(UserInfo.CurrentUser.Settings.SuggestionsCount, _suggestions.Count);
+            IsCycling = true;
+            if (index < 0)
+                index = _suggestions.Count - 1;
+            SuggestionEntry = _suggestions[index];
+            SuggestionIndex = index;
+            BestSuggestion = _suggestions[index];
         }
         #endregion
     }
