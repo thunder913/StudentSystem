@@ -32,10 +32,10 @@ namespace StudentSystemWinForms.Views
             var password = (passwordSuggestionBox.Child as SuggestTextBox);
 
             SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(username, _model, "Потребителско име", nameof(_model.BestSuggestionUsername),
-                nameof(_model.SuggestionEntry), nameof(_model.UserKeyPair), nameof(_model.Suggestions));
-
+                nameof(_model.SuggestionEntry), nameof(_model.UserKeyPair), nameof(_model.Suggestions), null);
+            
             SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(password, _model, "Парола", nameof(_model.BestSuggestionPassword),
-                nameof(_model.SuggestionEntry), nameof(_model.PassKeyPair), nameof(_model.Suggestions));
+                nameof(_model.SuggestionEntry), nameof(_model.PassKeyPair), nameof(_model.Suggestions), null);
 
         }
     }

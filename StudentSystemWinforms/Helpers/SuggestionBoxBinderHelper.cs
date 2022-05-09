@@ -8,7 +8,7 @@ namespace StudentSystemWinForms.Utils
     public static class SuggestionBoxBinderHelper
     {
         public static void BindPropertiesToSuggestionBox(SuggestTextBox suggestBox, ViewModelBase viewModel, string placeholderText, 
-            string autoSuggestPropertyName, string textPropertyName, string valueMemberPropertyName, string itemsPropertyName)
+            string autoSuggestPropertyName, string textPropertyName, string valueMemberPropertyName, string itemsPropertyName, string cycleSuggestions)
         {
             suggestBox.Placeholder = placeholderText;
 
@@ -39,6 +39,16 @@ namespace StudentSystemWinForms.Utils
                 Source = viewModel,
                 Path = new PropertyPath(itemsPropertyName)
             });
+
+            if (cycleSuggestions != null)
+            {
+                suggestBox.SetBinding(SuggestTextBox.CycleSuggestionsProperty, new Binding()
+                {
+                    Mode = BindingMode.TwoWay,
+                    Source = viewModel,
+                    Path = new PropertyPath(cycleSuggestions)
+                });
+            }
         }
     }
 }

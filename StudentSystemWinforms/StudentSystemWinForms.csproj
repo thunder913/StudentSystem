@@ -80,7 +80,9 @@
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="MVVM\ViewModel\AddStudentViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Command\CycleSuggestionCommand.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\IViewModelSuggestions.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

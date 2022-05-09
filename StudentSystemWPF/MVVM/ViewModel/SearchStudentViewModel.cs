@@ -34,10 +34,6 @@ namespace StudentSystem.MVVM.ViewModel
             get => _suggestionEntry;
             set
             {
-                if (SuggestionEntry?.FacultyNumber == "12")
-                {
-                    var asd = "asd";
-                }
                 if (!_allSuggestions.Contains(value) && IsCycling
                  || _suggestions == null
                  || !_suggestions.Any())

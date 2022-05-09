@@ -8,10 +8,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using StudentSystemWinForms.MVVM.ViewModel.Command;
+using System;
 
 namespace StudentSystemWinForms.MVVM.ViewModel
 {
-    public class SearchStudentViewModel : ViewModelBase
+    public class SearchStudentViewModel : ViewModelBase, IViewModelSuggestions
     {
         #region PrivateProperties
         private StudentService _studentService;
@@ -43,10 +46,17 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             get => _suggestionEntry;
             set
             {
+                if (!_allSuggestions.Contains(value) && IsCycling
+                     || _suggestions == null
+                     || !_suggestions.Any())
+                {
+                    IsCycling = false;
+                    SuggestionIndex = -1;
+                }
                 _suggestionEntry = value;
                 if (_suggestionEntry != null)
                 {
-                    if (_suggestionEntry.FacultyNumber != null)
+                    if (_suggestionEntry.FacultyNumber != null && !IsCycling)
                         Suggestions = _allSuggestions.Where(s => s.FacultyNumber.Contains(_suggestionEntry.FacultyNumber)).ToList();
                     if (_suggestionEntry.SelectedFacultyNumber != null)
                     {
@@ -213,6 +223,10 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SearchWord)));
             }
         }
+
+        public ICommand CycleSuggestionCommand { get; set; }
+        public int SuggestionIndex { get; set; }
+        public bool IsCycling { get; set; }
         #endregion
         public SearchStudentViewModel(ListView listView)
         {
@@ -223,6 +237,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
             FacultyNumberKeyPair = new KeyValuePair<object, string>(_suggestionEntry, "FacultyNumber");
             _studentService = new StudentService(new StudentContext());
             this.listView = listView;
+            CycleSuggestionCommand = new CycleSuggestionCommand(this);
         }
         #region Methods
         public void SelectedItemEvent(object sender)
@@ -255,7 +270,20 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 }
             }
         }
-
+        
+        public void ExecuteCycleSuggestions(object parameter)
+        {
+            if (!_suggestions.Any()) return;
+            int index = SuggestionIndex + int.Parse((string)parameter);
+            index = index % Math.Min(UserInfo.CurrentUser.Settings.SuggestionsCount, _suggestions.Count);
+            IsCycling = true;
+            if (index < 0)
+                index = _suggestions.Count - 1;
+            SuggestionEntry = _suggestions[index];
+            SuggestionIndex = index;
+            BestSuggestion = _suggestions[index].FacultyNumber;
+        }
+        
         private void FillSelectedData(Student student)
         {
             this.FacultyNumber = student.FacultyNumber;

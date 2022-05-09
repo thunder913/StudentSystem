@@ -41,7 +41,7 @@ namespace StudentSystemWinForms.MVVM.View
             setSuggestionButton.Click += (sender, e) => _model.SetSuggestion();
 
             var searchBox = (suggestBox.Child as SuggestTextBox);
-            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchBox, _model, "Скорошен", nameof(_model.BestSuggestionFacultyNumber), nameof(_model.SuggestionEntry), nameof(_model.SuggestedFacultyNumberKeyPair), nameof(_model.Suggestions));
+            SuggestionBoxBinderHelper.BindPropertiesToSuggestionBox(searchBox, _model, "Скорошен", nameof(_model.BestSuggestionFacultyNumber), nameof(_model.SuggestionEntry), nameof(_model.SuggestedFacultyNumberKeyPair), nameof(_model.Suggestions), nameof(_model.CycleSuggestionCommand));
         }
     }
 }
