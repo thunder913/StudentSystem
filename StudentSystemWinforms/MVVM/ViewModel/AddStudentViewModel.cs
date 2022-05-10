@@ -82,7 +82,7 @@ namespace StudentSystemWinForms.MVVM.ViewModel
                 var inputLengthThreshold =
                     UserInfo.CurrentUser == null ? 3 : UserInfo.CurrentUser.Settings.InputLengthThreshold;
                 BestSuggestion = new StudentAddSuggestion();
-                BestSuggestion.SuggestedFacultyNumber = SuggestionEntry.SuggestedFacultyNumber.Length >= inputLengthThreshold ? first.FacultyNumber : string.Empty;
+                BestSuggestion = SuggestionEntry.SuggestedFacultyNumber.Length >= inputLengthThreshold ? first : new StudentAddSuggestion();
             }
         }
         public StudentAddSuggestion BestSuggestion
